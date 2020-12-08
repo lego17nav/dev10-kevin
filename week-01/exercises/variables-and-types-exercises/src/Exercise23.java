@@ -16,5 +16,13 @@ public class Exercise23 {
         // blue
         // indigo
         // violet
+
+        System.out.println(colors.substring(0,3));
+        System.out.println(colors.substring(4,10));
+        System.out.println(colors.substring(11,18));
+        System.out.println(colors.substring(18,24));
+        System.out.println(colors.substring(24,28));
+        System.out.println(colors.substring(29,35));
+        System.out.println(colors.substring(36,42));
     }
 }
