@@ -11,5 +11,8 @@ public class Exercise03 {
         // 19
         // 18
         // 17
+        for(int x = 23; x != 17 ; x--) {
+            System.out.println(x);
+        }
     }
 }

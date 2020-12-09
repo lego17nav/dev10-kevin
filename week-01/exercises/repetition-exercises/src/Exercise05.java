@@ -6,9 +6,8 @@ public class Exercise05 {
         // The transformation from `while` to `for` should not change behavior.
 
         int index = 5;
-        while (index <= 100) {
-            System.out.println(index);
-            index += 5;
+        for(int i = index; i <= 100; i += 5) {
+            System.out.println(i);
         }
     }
 }

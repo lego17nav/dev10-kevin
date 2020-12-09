@@ -10,8 +10,12 @@ public class Exercise10 {
 
         System.out.print("End: ");
         int end = Integer.parseInt(console.nextLine());
-
+        int sum = 0;
         // 1. Write a loop to sum all numbers between start and end.
         // 2. Print the result.
+        for(int i = start; i < end; i ++) {
+            sum += i;
+        }
+        System.out.println(sum);
     }
 }

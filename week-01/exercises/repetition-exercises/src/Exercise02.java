@@ -11,5 +11,11 @@ public class Exercise02 {
         // 8
         // 10
         // 12
+        int x = 0;
+        while(x <13)
+        {
+            System.out.println(x);
+            x++;
+        }
     }
 }
