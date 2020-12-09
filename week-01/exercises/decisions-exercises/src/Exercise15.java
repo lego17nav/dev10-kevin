@@ -9,7 +9,14 @@ public class Exercise15 {
 
         System.out.print("Enter a word: ");
         String word = console.nextLine();
-        String opposite = null;
+        String opposite = "";
+        int len = word.length() - 1;
+        while(len > 0)
+        {
+            opposite = opposite + word.charAt(len);
+            len--;
+        }
+        System.out.println(opposite);
 
         // 1. Re-implement Exercise08 using a switch statement.
     }

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang. *;
 
 public class Exercise07 {
 
@@ -30,5 +31,14 @@ public class Exercise07 {
         // Hours of homework: 20
         // Day of week: Sunday
         // Time to do the homework...
+        char firstLetter = dayOfWeek.charAt(0);
+        if(firstLetter == 'S' && hoursOfHomework < 15)
+        {
+            System.out.printf("Hours of homework: %s \nDay of week: %s \nI'm Taking the day off", hoursOfHomework, dayOfWeek);
+        }
+        else
+        {
+            System.out.printf("Hours of homework: %s \nDay of week: %s \nI'm Doing homework", hoursOfHomework, dayOfWeek);
+        }
     }
 }

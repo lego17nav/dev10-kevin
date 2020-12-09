@@ -13,5 +13,13 @@ public class Exercise05 {
         //   You're correct. The secret word is "tahini".
         // Otherwise, print:
         //   That's not quite right. Try again.
+        if(secret.equals("tahini"))
+        {
+            System.out.println("That's Correct. The secret word is Tahini");
+        }
+        else
+        {
+            System.out.println("That's incorrect. Please try again");
+        }
     }
 }

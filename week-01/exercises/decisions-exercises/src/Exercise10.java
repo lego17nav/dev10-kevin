@@ -1,4 +1,8 @@
+import java.io.Console;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.List;
 
 public class Exercise10 {
 
@@ -21,5 +25,51 @@ public class Exercise10 {
         // If a lbs/zone combo does not exist, print a warning message for the user.
 
         Scanner console = new Scanner(System.in);
+        System.out.println("Please Enter the weight");
+        String lbs = console.nextLine();
+        System.out.println("Please Enter the Zone");
+        String zone = console.nextLine();
+        String[] zoneList = {"1", "2"};
+        String[] lbsList = {"1", "2", "3", "4", "5"};
+        double price = 0;
+        if (zone.equals("1")) {
+            switch (lbs) {
+                case "1":
+                    price = 7.50;
+                case "2":
+                    price = 8.25;
+                case "3":
+                    price = 8.70;
+                case "4":
+                    price = 9.20;
+                case "5":
+                    price = 10.20;
+            }
+
+        }
+        else if (zone.equals("2")) {
+            switch (lbs) {
+                case "1":
+                    price = 7.85;
+                case "2":
+                    price = 8.70;
+                case "3":
+                    price = 9.70;
+                case "4":
+                    price = 10.55;
+                case "5":
+                    price = 11.30;
+            }
+        } else {
+            System.out.println("That data is not available");
+            System.exit(0);
+        }
+
+
+
+        System.out.printf("Hey for Zone %s with the weight of %s the total price is %.2f", zone, lbs, price);
+
+
     }
 }
+
