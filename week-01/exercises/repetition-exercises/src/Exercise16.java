@@ -22,5 +22,19 @@ public class Exercise16 {
         // (2X2)
         // **
         // **
+
+        for(int x = 0; x != 5; x++){
+            for(int y = 0; y != 5; y++)
+            {
+                if(x == 1 || y == 1)
+                {
+                    System.out.print("*");
+                }
+                else {
+                    System.out.print("#");
+            }
+
+            }
+        }
     }
 }

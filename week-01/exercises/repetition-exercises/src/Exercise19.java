@@ -24,5 +24,13 @@ public class Exercise19 {
         // "B", "igstar" -> "Bigstar"
         // "", "huh?" -> "huh?"
         // "wha?", "" -> "wha?"
+        String interleaved = "";
+        for(int x = 0; x < first.length(); x++) {
+            interleaved += first.charAt(x);
+            if(x < second.length()) {
+                interleaved += second.charAt(x);
+            }
+        }
+        System.out.println(interleaved);
     }
 }
