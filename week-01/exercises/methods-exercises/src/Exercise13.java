@@ -34,11 +34,37 @@ public class Exercise13 {
     // Hint: call areInOrder and areContiguous. Neither method can guarantee the result alone, but together they solve
     // the problem.
 
+    public static boolean areInOrder(int a, int b, int c) {
+        if(a < b && b < c) {
+            return true;
+        }
+        else
+            return false;
+    }
+    public static boolean areContiguous(int a, int b, int c) {
+        if (b - a == 1 && c - b == 1) {
+            return true;
+        } else if (b - c == 1 && a - b == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isAscendingContiguous(int a, int b, int c) {
+        if(areContiguous(a,b,c) && areInOrder(a,b,c)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         // 4. Uncomment the code below and confirm it works.
-        // System.out.println(isAscendingContiguous(3, 4, 5)); // true
-        // System.out.println(isAscendingContiguous(-10, 4, 100)); // false
-        // System.out.println(isAscendingContiguous(2, 1, 2)); // false
-        // System.out.println(isAscendingContiguous(5, 4, 3)); // false, not ascending
+        System.out.println(isAscendingContiguous(3, 4, 5)); // true
+        System.out.println(isAscendingContiguous(-10, 4, 100)); // false
+        System.out.println(isAscendingContiguous(2, 1, 2)); // false
+        System.out.println(isAscendingContiguous(5, 4, 3)); // false, not ascending
     }
 }

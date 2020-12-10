@@ -8,7 +8,7 @@ public class Exercise11 {
 
         name = readString("What's your name?: ");
         // 2. Uncomment the line below and confirm readInt works.
-        // pillowCount = readInt("How many pillows do you sleep with?: ");
+        //pillowCount = readInt("How many pillows do you sleep with?: ");
 
         System.out.printf("%s sleeps with %s pillows.%n", name, pillowCount);
     }
@@ -29,5 +29,16 @@ public class Exercise11 {
         Scanner console = new Scanner(System.in);
         System.out.print(prompt);
         return console.nextLine();
+    }
+    public static int readInt(Scanner console, String readString) {
+        int digit = 0;
+        int stringLength = readString.length();
+        for(int i = 0; i < stringLength; i++) {
+            if(Character.isDigit(readString.charAt(i)))
+            {
+                digit = (int) readString.charAt(i);
+            }
+        }
+        return digit;
     }
 }

@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Exercise15 {
     /* FIZZ BUZZ
 
@@ -32,4 +33,35 @@ public class Exercise15 {
     17
     Fizz
      */
+    public static void main(String[] args) {
+        Scanner console = new Scanner(System.in);
+        System.out.print("Please enter an integer");
+        String limit = console.nextLine();
+        int limitInt = Integer.parseInt(limit);
+
+        fizzBuzz(limitInt);
+    }
+
+    public static void fizzBuzz(int a) {
+        if (a > 0) {
+            for (int i = 0; i < a; i++) {
+                if(i % 3 == 0 && i % 5 == 0) {
+                    System.out.println("Fizz Buzz");
+                }
+                else if(i % 5 == 0) {
+                    System.out.println("Buzz");
+                }
+                else if(i % 3 == 0) {
+                    System.out.println("Fizz");
+                }
+                else {
+                    System.out.println(i);
+                }
+            }
+        }
+        else {
+            System.out.println("Need a positive number");
+            System.exit(0);
+    }
+}
 }

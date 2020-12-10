@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Exercise14 {
     /* SHORT SURVEY
 
@@ -12,4 +13,25 @@ public class Exercise14 {
 
     Use methods to break the program into reusable blocks of code.
      */
+    public static String QuestionPrompt(Scanner console, String question) {
+        System.out.println(question);
+        String answer = console.nextLine();
+        return answer;
+    }
+    public static void PrintInfo(String name, String last, String city, String instrument) {
+
+        System.out.printf("First Name: %s\nLast Name: %s\nCity: %s\nInstrument: %s", name, last, city, instrument);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner console = new Scanner(System.in);
+        String name = QuestionPrompt(console, "What is your first name?");
+        String lastname = QuestionPrompt(console, "What is your last name?");
+        String city = QuestionPrompt(console, "WHat city have you lived in?");
+        String instrument = QuestionPrompt(console, "WHat instrument can you play?");
+
+        PrintInfo(name,lastname,city,instrument);
+
+    }
 }
