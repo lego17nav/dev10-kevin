@@ -27,5 +27,5 @@ public class Exercise08 {
         }
         return result;
     }
-    
+
 }
