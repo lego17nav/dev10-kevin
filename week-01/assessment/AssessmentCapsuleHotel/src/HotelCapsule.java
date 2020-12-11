@@ -144,14 +144,15 @@ public class HotelCapsule {
 
     public static void ViewGuests(Scanner console, String[] hotelRooms) {
 
-        System.out.println("Please enter a room number:");
-        String roomNumber = console.nextLine();
-        int roomNumberInt = Integer.parseInt(roomNumber);
         boolean promptLoop = true;
 
         while(promptLoop) {
 
-            if(roomNumberInt - 1 > 0 && roomNumberInt - 1 < hotelRooms.length) {
+            System.out.println("Please enter a room number:");
+            String roomNumber = console.nextLine();
+            int roomNumberInt = Integer.parseInt(roomNumber);
+
+            if(roomNumberInt - 1 >= 0 && roomNumberInt - 1 <= hotelRooms.length) {
 
                 for(int rooms = roomNumberInt - 6; rooms < roomNumberInt + 6; rooms++) {
 
@@ -171,7 +172,7 @@ public class HotelCapsule {
         }
     }
 
-    
+
     //Function that will cause the program to close should the user want to.
     public static void Quit(Scanner console) {
 
