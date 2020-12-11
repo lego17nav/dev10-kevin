@@ -71,6 +71,7 @@ public class HotelCapsule {
         return hotelRooms;
     }
 
+
     // Function that prompt user to select from 1 - 4
     // If Input is valid the function loops over until a valid answer is given
     public static int MainMenu(Scanner console) {
@@ -90,14 +91,12 @@ public class HotelCapsule {
         }
 
         return choiceInt;
-
     }
 
 
     // Prompts user for a name and room number
     // If room number is occupied the functions loops over using a while loop
-
-    public static String[] checkIn(Scanner console, String[] hotelRooms) {
+    public static void checkIn(Scanner console, String[] hotelRooms) {
 
         System.out.println("Guest Name:");
         String guestName = console.nextLine();
@@ -117,13 +116,12 @@ public class HotelCapsule {
                 System.out.println("That room is occupied/not valid\n=========================\n");
             }
         }
-        return hotelRooms;
     }
 
 
     // Check in Function ask user for room number
     // If room number is valid check out the user and set it equal to null
-    public static String[] checkOut(Scanner console, String[] hotelsRooms) {
+    public static void checkOut(Scanner console, String[] hotelsRooms) {
 
         System.out.println("Guess Checkout:\n=====================\n");
 
@@ -141,8 +139,6 @@ public class HotelCapsule {
                 System.out.println("Not a valid Room\n==============================\n");
             }
         }
-
-        return hotelsRooms;
     }
 
 
@@ -175,6 +171,7 @@ public class HotelCapsule {
         }
     }
 
+    
     //Function that will cause the program to close should the user want to.
     public static void Quit(Scanner console) {
 
@@ -185,7 +182,5 @@ public class HotelCapsule {
             System.exit(0);
         }
     }
-
-
 }
 
