@@ -108,7 +108,7 @@ public class HotelCapsule {
             String roomNum = console.nextLine();
             int roomNumInt = Integer.parseInt(roomNum);
 
-            if (roomNumInt - 1 > 0 && roomNumInt - 1 < hotelRooms.length && hotelRooms[roomNumInt - 1] == null) {
+            if (roomNumInt - 1 >= 0 && roomNumInt - 1 < hotelRooms.length && hotelRooms[roomNumInt - 1] == null) {
                 hotelRooms[roomNumInt - 1] = guestName;
                 System.out.printf("%s has been checked in to room %d\n=============================\n", guestName, roomNumInt);
                 occupied = false;
@@ -131,7 +131,7 @@ public class HotelCapsule {
             String roomNum = console.nextLine();
             int roomNumInt = Integer.parseInt(roomNum);
 
-            if(roomNumInt - 1 > 0 && hotelsRooms[roomNumInt-1] != null && roomNumInt - 1 < hotelsRooms.length) {
+            if(roomNumInt - 1 >= 0 && hotelsRooms[roomNumInt-1] != null && roomNumInt - 1 < hotelsRooms.length) {
                 System.out.printf("%s has been checked out of room %d\n==========================\n",hotelsRooms[roomNumInt-1],roomNumInt);
                 hotelsRooms[roomNumInt-1] = null;
                 roomNotOccupied = false;
@@ -156,7 +156,7 @@ public class HotelCapsule {
 
                 for(int rooms = roomNumberInt - 6; rooms < roomNumberInt + 6; rooms++) {
 
-                    if(rooms > 0 && rooms < hotelRooms.length) {
+                    if(rooms >= 0 && rooms < hotelRooms.length) {
 
                         if(hotelRooms[rooms] == null) {
                             System.out.printf("%d:%s\n",rooms + 1,"Unoccupied");
