@@ -7,9 +7,15 @@ public class Exercise02 {
         Musician ocean = new Musician("Frank Ocean", 10);
         System.out.println(ocean.getName());
         // 2. Uncomment the line below and insure that it compiles and runs.
-        // System.out.println(ocean.getRating());
+        System.out.println(ocean.getRating());
 
         // 3. Instantiate two musicians and assign them to new variables.
         // 4. Print each musicians' name and rating on a single line.
+
+        Musician drake = new Musician("Drake Abel", 10);
+        Musician cyrus = new Musician("Miley Cyrus", 7);
+
+        System.out.printf("%s:%d", drake.getName(),drake.getRating());
+        System.out.printf("%s:%d", cyrus.getName(),cyrus.getRating());
     }
 }
