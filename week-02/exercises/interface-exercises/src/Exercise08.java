@@ -16,7 +16,7 @@ public class Exercise08 {
         // Person may optionally have a MoneyStorage.
 
         Person p = new Person("Sidonnie", "Antonietti");
-        p.deposit(125.85);
+        p.setWalletInfo(new Wallet(1000, "Sample"));
         System.out.println(p.getFullName());
         System.out.println(p.getDescription());
         System.out.println(p.getBalance());

@@ -43,6 +43,40 @@ public class Exercise07 {
             input = console.nextLine();
         } while (!(input.length() == 1 && input.charAt(0) >= '1' && input.charAt(0) <= '4'));
 
+        MoneyStorage storage =null;
+
+        switch(input.charAt(0)) {
+            case '1':
+                System.out.println("Please Enter your Balance:");
+                double balance = console.nextDouble();
+                System.out.println("Enter the description for you wallet");
+                String description = console.nextLine();
+                storage = new Wallet(balance,description);
+                break;
+            case '2':
+                System.out.println("Please Enter your Mortgage:");
+                double mortbalance = console.nextDouble();
+                System.out.println("Enter the description for you wallet");
+                String mortdescription = console.nextLine();
+                MoneyStorage mortStorage = new Mortgage(mortbalance,mortdescription);
+                break;
+            case '3':
+                System.out.println("Please Enter your Vault Amount:");
+                double vaultBalance = console.nextDouble();
+                System.out.println("Enter the description for you Vault");
+                String vaultDescription = console.nextLine();
+                storage = new Mortgage(vaultBalance,vaultDescription);
+                break;
+            case '4':
+                System.out.println("Please Enter your Bank Account Amount:");
+                double bankBalance = console.nextDouble();
+                System.out.println("Enter your Account number");
+                String bankDescription = console.nextLine();
+                storage = new Mortgage(bankBalance,bankDescription);
+                break;
+        }
+
+
         // 1. Add a switch statement to handle options 1 - 4.
         // 2. For each option, create a method that returns a MoneyStorage of the appropriate type:
         // 1 == Wallet, 2 == Mortgage, 3 == Vault, 4 == Bank Account
@@ -53,8 +87,9 @@ public class Exercise07 {
         // - for Vault?
 
         // 3. Return the Wallet, Mortgage, Vault, or Bank Account instead of null.
-        return null;
+        return storage;
     }
+
 
     static void print(MoneyStorage storage) {
         System.out.println();

@@ -16,6 +16,8 @@ public class Exercise01 {
         print(mortgage);
 
         // 1. Declare a third MoneyStore variable here, either Wallet or Mortgage.
+        Wallet walletsamp = new Wallet(999.00, "Savings");
+        print(walletsamp);
         // 2. Pass it to the `print` method.
     }
 
