@@ -12,5 +12,10 @@ public class Exercise05 {
         // 2. Add two vehicles to the new map.
         // 3. Add items from the new map to `vehicleMap` using the `putAll` method.
         // 4. Confirm the vehicles were added by retrieving on with its VIN and printing it to the console.
+
+        ;
+
+        HashMap<String, Vehicle> newMap = new HashMap<>();
+        newMap.put("1st","Mitsubishi")
     }
 }

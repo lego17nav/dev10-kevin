@@ -11,11 +11,17 @@ public class Exercise01 {
     // 2. Complete the add and subtract methods and make all tests pass.
 
     static int add(int a, int b) {
-        return 0;
+
+        int sum = a + b;
+
+        return sum;
     }
 
     static int subtract(int a, int b) {
-        return 0;
+
+        int difference = a - b;
+
+        return difference;
     }
 
     // 3. Add tests for multiply and divide in Exercise01Test.
@@ -24,10 +30,16 @@ public class Exercise01 {
     // 5. Complete the multiply and divide methods and make all tests pass.
 
     static int multiply(int a, int b) {
-        return 0;
+
+        int product = a * b;
+
+        return product;
     }
 
     static int divide(int a, int b) {
-        return 0;
+
+        int quotient = a / b;
+
+        return quotient;
     }
 }

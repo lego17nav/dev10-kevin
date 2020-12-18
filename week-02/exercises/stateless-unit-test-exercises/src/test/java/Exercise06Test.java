@@ -9,7 +9,7 @@ class Exercise06Test {
     // Suggested test additions:
     // shouldBeNullForNulLArg
     // shouldCapitalizeMultipleElements (several scenarios)
-    // shouldIgnoreNullElements
+    // shouldIgnoreNullElementsN
     // shouldIgnoreEmptyElements
 
     @Test
@@ -23,5 +23,10 @@ class Exercise06Test {
     @Test
     void shouldBeEmptyForEmptyArg() {
         assertArrayEquals(new String[0], instance.capitalizeAll(new String[0]));
+    }
+
+    @Test
+    void shouldBeNullForNulLArg() {
+        
     }
 }

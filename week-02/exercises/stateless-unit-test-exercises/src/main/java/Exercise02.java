@@ -20,6 +20,17 @@ public class Exercise02 {
      * @return string in the form: <tagName>text</tagName>
      */
     static String surroundWithTag(String text, String tagName) {
-        return null;
+
+        String output = text;
+
+        if(!tagName.equals("") && !tagName.equals(null)) {
+
+            String prefix = "<" + tagName + ">";
+            String suffix = "</" + tagName + ">";
+            output = prefix + text + suffix;
+
+        }
+
+        return output;
     }
 }

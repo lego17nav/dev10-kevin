@@ -58,7 +58,32 @@ public class Exercise13 {
                 default:
                     System.out.printf("%nI don't understand '%s'.%n", input);
                     break;
-            }
+            } prompt(input);
         } while (!input.equals("4"));
+    }
+
+    public void prompt(String input) {
+        if(input.equals("1")) {
+            System.out.println("Enter the Name");
+            String gameName = console.nextLine();
+            System.out.println("Enter Min Player");
+            int minPlayer = console.nextInt();
+            System.out.println("Max PLayer");
+            int maxPlayer = console.nextInt();
+            System.out.println("Category");
+            String category = console.nextLine();
+
+            games.add(new BoardGame(gameName,minPlayer,maxPlayer,category));
+
+        }
+        else if(input.equals("2")) {
+            Exercise02.printAll(games);
+        }
+        else if(input.equals("3")) {
+            System.out.println("Give an Index");
+            games.remove(console.nextInt());
+        } else if(input.equals("4")) {
+            System.exit(0);
+        }
     }
 }
