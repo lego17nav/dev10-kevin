@@ -7,13 +7,18 @@ import java.util.List;
 
 public class Gomoku {
 
+ // Basic Game setup
     public static final int WIDTH = 15;
 
     private final Player playerOne;
     private final Player playerTwo;
+
+    // 2D Array of width * width
     private final char[][] board = new char[WIDTH][WIDTH];
 
     private ArrayList<Stone> stones = new ArrayList<>();
+
+    // ?Boolean which might end a turn or game?
     private boolean over;
     private Player current;
     private Player winner;
@@ -39,6 +44,7 @@ public class Gomoku {
         return blacksTurn;
     }
 
+    //Constructor class
     public Gomoku(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -51,26 +57,27 @@ public class Gomoku {
     }
 
     public Result place(Stone stone) {
-
+        //If is Over games ends how?
         if (isOver()) {
             return new Result("Game is over.");
         }
-
+        // If move not valid reloop
         if (!isValid(stone)) {
             return new Result("Stone is off the board.");
         }
-
+        //
         if (blacksTurn != stone.isBlack()) {
             return new Result("Wrong player.");
         }
-
+        // CHeck if index is equal zero if not it's not a viable move
         if (board[stone.getRow()][stone.getColumn()] != 0) {
             return new Result("Duplicate move.");
         }
-
+        // If blacks turn make b
+        // Add stone object to list with ? Possibly with data ? Row/Column or Type.
         board[stone.getRow()][stone.getColumn()] = blacksTurn ? 'B' : 'W';
         stones.add(stone);
-
+        // ? Not sure how the winning is dicated basd on the win isWin method.
         if (isWin(stone)) {
             over = true;
             winner = current;
@@ -124,6 +131,9 @@ public class Gomoku {
         return count(row, column, -1, 1, symbol)
                 + count(row, column, 1, -1, symbol) == 4;
     }
+
+    // Go through each index 1 index at a time
+    // deltaRow & deltaCol if the step is horizontal/vertical/diagonal.
 
     private int count(int row, int col, int deltaRow, int deltaCol, char symbol) {
 

@@ -71,7 +71,8 @@ public class Game {
             // left wall border
             System.out.print(WALL_CHARACTER);
             for (int col = 0; col < WIDTH; col++) {
-                if (row == hero.getY() && col == hero.getX()) {
+                if (row == hero.getY
+                        () && col == hero.getX()) {
                     System.out.print(hero.getSymbol());
                 } else if (row == treasure1.getY() && col == treasure1.getX()) {
                     System.out.print(treasure1.getSymbol());

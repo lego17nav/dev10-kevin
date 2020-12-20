@@ -15,7 +15,8 @@ public class Result {
         this.message = message;
         this.success = success;
     }
-
+    // Return if success boolean
+    // Return Message String
     public boolean isSuccess() {
         return success;
     }
