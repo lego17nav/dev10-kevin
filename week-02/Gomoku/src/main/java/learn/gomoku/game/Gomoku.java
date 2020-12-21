@@ -77,7 +77,7 @@ public class Gomoku {
         // Add stone object to list with ? Possibly with data ? Row/Column or Type.
         board[stone.getRow()][stone.getColumn()] = blacksTurn ? 'B' : 'W';
         stones.add(stone);
-        // ? Not sure how the winning is dicated basd on the win isWin method.
+        // ? Not sure how the winning is dictated based on the win isWin method.
         if (isWin(stone)) {
             over = true;
             winner = current;
