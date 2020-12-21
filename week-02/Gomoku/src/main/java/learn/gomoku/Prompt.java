@@ -23,7 +23,7 @@ public class Prompt {
 
         for (int i = 1; i != 3; i++) {
 
-            System.out.printf("Player %d is:\n1. Human\n2. Random\nSelect [1-2]", i);
+            System.out.printf("Player %d is:\n1. Human\n2. Random\nSelect [1-2]:\n", i);
 
             int choice = console.nextInt();
             console.nextLine();

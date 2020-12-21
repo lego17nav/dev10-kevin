@@ -38,12 +38,12 @@ public class App {
                 }
             }
 
-            System.out.print("The winner of the game is " + game.getWinner().getName());
+            System.out.println("The winner of the game is " + game.getWinner().getName());
             System.out.println("Want to play again?[y/n]");
             Scanner console = new Scanner(System.in);
             String yesNo = console.nextLine();
 
-            if (yesNo.equals("n"))
+            if (yesNo.equalsIgnoreCase("n"))
             {
                 System.out.println("Goodbye");
                 gameExit = true;

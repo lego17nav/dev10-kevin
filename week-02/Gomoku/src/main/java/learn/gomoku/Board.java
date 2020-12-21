@@ -29,6 +29,7 @@ public class Board {
                 }
             } System.out.println();
         }
+        System.out.println("=".repeat(50));
     }
 
     public void fillBoard(int col,int row, boolean isBlack) {
