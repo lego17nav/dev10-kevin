@@ -54,4 +54,29 @@ class EncounterFileRepositoryTest {
         assertEquals(4, actual.getEncounterId());
     }
 
+    @Test
+    void shouldFindByType() throws DataAccessException {
+        EncounterFileRepository encounterFileRepo = new EncounterFileRepository(TEST_PATH);
+        assertNotNull(encounterFileRepo.findByType(EncounterType.UFO));
+    }
+
+    @Test
+    void shouldUpdate() throws DataAccessException {
+        EncounterFileRepository encounterFileRepo = new EncounterFileRepository(TEST_PATH);
+        Encounter encounterTest1 = new Encounter(1, EncounterType.UFO, "2020-02-09", "short test #1", 2);
+        assertEquals(true,encounterFileRepo.update(encounterTest1));
+    }
+
+    void shouldNotUpdate() throws DataAccessException {
+        EncounterFileRepository encounterFileRepo = new EncounterFileRepository(TEST_PATH);
+        Encounter encounterTest1 = new Encounter(5, EncounterType.UFO, "2020-02-09", "short test #1", 2);
+        assertEquals(false,encounterFileRepo.update(encounterTest1));
+    }
+
+    void shouldDelete() throws DataAccessException {
+        EncounterFileRepository encounterFileRepository = new EncounterFileRepository(TEST_PATH);
+        assertEquals(true,encounterFileRepository.deleteById(2));
+    }
+
+
 }

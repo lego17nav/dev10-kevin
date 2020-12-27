@@ -23,6 +23,7 @@ public class TwoCardHand implements Comparable<TwoCardHand> {
     @Override
     public int compareTo(TwoCardHand o) {
         // 1. Complete the compareTo method.
+        if(this <)
         // If the current TwoCardHand(`this`) has a lower score than the TwoCardHand parameter, compareTo returns
         // an int less than 0.
         // If `this` has a higher score than the TwoCardHand parameter, compareTo returns an int greater than 0.

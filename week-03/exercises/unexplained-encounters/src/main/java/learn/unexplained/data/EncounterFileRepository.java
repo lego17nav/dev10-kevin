@@ -62,6 +62,30 @@ public class EncounterFileRepository implements EncounterRepository {
         return false;
     }
 
+    public List<Encounter> findByType(EncounterType encounterType) throws DataAccessException {
+        ArrayList<Encounter> result = new ArrayList<>();
+
+        for(Encounter encounter: findAll()) {
+            if (encounter.getType() == encounterType) {
+                result.add(encounter);
+            }
+        }
+        return result;
+    }
+
+    public boolean update(Encounter encounter) throws DataAccessException {
+
+        List<Encounter> encounters = findAll();
+
+        for(int i = 0; i < encounters.size(); i++) {
+            if(encounters.get(i).getEncounterId() == encounter.getEncounterId()) {
+                encounters.set(i,encounter);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private int getNextId(List<Encounter> allEncounters) {
         int nextId = 0;
         for (Encounter e : allEncounters) {
@@ -111,5 +135,7 @@ public class EncounterFileRepository implements EncounterRepository {
     private String restore(String value) {
         return value.replace(DELIMITER_REPLACEMENT, DELIMITER);
     }
+
+
 
 }

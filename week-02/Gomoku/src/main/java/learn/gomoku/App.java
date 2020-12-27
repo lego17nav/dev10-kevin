@@ -29,7 +29,8 @@ public class App {
             while (!game.isOver()) {
                 board.displayBoard();
                 Stone stone = gameStart.movePrompt(game.isBlacksTurn(), game.getCurrent(), game.getStones());
-                System.out.printf("%s has placed a move in Row:%d and Col:%d\n", game.getCurrent().getName(), stone.getRow() + 1, stone.getColumn() + 1);
+                System.out.printf("%s has placed a move in Row:%d and Col:%d\n", game.getCurrent().getName(),
+                        stone.getRow() + 1, stone.getColumn() + 1);
                 if (!game.place(stone).isSuccess()) {
                     System.out.println(game.place(stone).getMessage());
                 } else {
