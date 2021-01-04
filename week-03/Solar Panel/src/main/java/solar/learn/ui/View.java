@@ -34,7 +34,7 @@ public class View {
                 System.out.printf("Section: %s\nColumn - %d\nRow - %d\nMaterial - %s\nYear Built - %d\n" +
                                 "Is Tracking - %s\n" +
                                 "Unique Key - %s\n" +
-                                "===================================",
+                                "===================================\n",
                         solarPanel.getSection(), solarPanel.getCol(), solarPanel.getRow(),
                         solarPanel.getMaterial().getStringValue(),solarPanel.getYearInstalled(),
                         solarPanel.getIsTracking() == true? "Yes" : "No",solarPanel.getUniqueKey());

@@ -1,2 +1,3 @@
 Bogart|1|1|2014|AMORPHOUS|false|Bogart:1:1
 Lolo|1|1|2013|AMORPHOUS|false|Lolo:1:1
+lolo|2|2|2013|CADMIUM|false|lolo:2:2
