@@ -64,6 +64,7 @@ public class SolarPanelService {
         return false;
     }
 
+
     private SolarPanelResults validate(SolarPanel solarPanel) throws DataAccessException {
 
         SolarPanelResults result = new SolarPanelResults();

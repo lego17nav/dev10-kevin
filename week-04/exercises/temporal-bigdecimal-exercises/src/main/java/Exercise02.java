@@ -10,17 +10,17 @@ public class Exercise02 {
 
     // 1. return the current time as a LocalTime
     LocalTime getNow() {
-        return null;
+        return LocalTime.now();
     }
 
     // 2. return 4PM (tea time!) as a LocalTime.
     LocalTime getTeaTime() {
-        return null;
+        return LocalTime.of(16,00);
     }
 
     // 3. add 12 hours to the time parameter and return the value
     LocalTime add12Hours(LocalTime time) {
-        return null;
+        return time.plusHours(12);
     }
 
     // 4. given a time parameter, return a list of the next 4
