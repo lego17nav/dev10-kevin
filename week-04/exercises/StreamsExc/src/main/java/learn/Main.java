@@ -2,11 +2,8 @@ package learn;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.HashMap;
 
 public class Main {
 
@@ -77,12 +74,16 @@ public class Main {
 
         // 9. Print students2 who are registered for the course "Literary Genres".
 
-
+        students.stream()
+                .filter(student -> student.getRegistrations()
+                        .stream().anyMatch(registration -> registration.getCourse()
+                                .equalsIgnoreCase("literary genres")))
+                .forEach(System.out::println);
 
         // 10. Who has the latest birthday? Who is the youngest?
         students.stream()
-                .sorted((a,b) -> a.getBirthDate().compareTo(b.getBirthDate()))
-                .forEach(System.out::println);
+                .max(Comparator.comparing(Student::getBirthDate))
+                .ifPresent(System.out::println);
 
         // 11. Who has the highest GPA? There may be a tie.
 
@@ -91,6 +92,10 @@ public class Main {
                 .sorted(Comparator.reverseOrder())
                 .findFirst()
                 .orElse(BigDecimal.ZERO);
+
+        students.stream()
+                .max(Comparator.comparing(Student::getGpa))
+                .ifPresent(System.out::println);
 
 
         // 12. Print every course students are registered for, including repeats.
