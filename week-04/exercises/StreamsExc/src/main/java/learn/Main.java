@@ -113,9 +113,10 @@ public class Main {
         // 16. Count students per country. Order by most to fewest students.
 
         students.stream()
-                .collect(Collectors.groupingBy(Student::getCountry, Collectors.counting()))
-                .entrySet().stream()
-                .sorted((es1,es2) -> es1.getValue().compareTo(es2.getValue()))
+                .collect(Collectors.groupingBy(Student::getCountry))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparing(entry -> entry.getKey()))
                 .forEach(System.out::println);
 
         //Look up entryset
@@ -132,6 +133,14 @@ public class Main {
 
 
         // 20. What is the average GPA per country (remember, it's random fictional data).
+
+        students.stream()
+                .collect(Collectors.groupingBy(Student::getCountry, Collectors.
+                                averagingDouble((student -> student.getGpa().doubleValue()))))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparing((Map.Entry<String,Double> entry) -> entry.getValue()).reversed())
+                .forEach(System.out::println);
 
         // 21. What is the maximum GPA per country?
 

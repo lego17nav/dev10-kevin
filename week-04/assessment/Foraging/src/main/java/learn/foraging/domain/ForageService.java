@@ -96,6 +96,7 @@ public class ForageService {
             return result;
         }
 
+        validateDuplicates(forage, result);
         validateChildrenExist(forage, result);
 
         return result;
@@ -132,6 +133,26 @@ public class ForageService {
         if (forage.getKilograms() <= 0 || forage.getKilograms() > 250.0) {
             result.addErrorMessage("Kilograms must be a positive number less than 250.0");
         }
+
+    }
+
+    private void validateDuplicates(Forage forage, Result<Forage> result) {
+
+        List<Forage> forages = findByDate(forage.getDate());
+
+        List<Forage> individualForages = forages.stream()
+                .filter(f -> f.getForager().getFullName().equalsIgnoreCase(forage.getForager().getFullName()))
+                .collect(Collectors.toList());
+//                .map(f -> f.getForager().getFullName())
+//                .anyMatch(name -> name.equalsIgnoreCase(forage.getForager().getFullName()));
+
+        boolean duplicate = individualForages.stream()
+                .anyMatch(ff -> ff.getItem().getName().equalsIgnoreCase(forage.getItem().getName()));
+
+        if(duplicate) {
+            result.addErrorMessage("This expedition is a duplicate of another in the same date");
+        }
+
     }
 
     private void validateChildrenExist(Forage forage, Result<Forage> result) {

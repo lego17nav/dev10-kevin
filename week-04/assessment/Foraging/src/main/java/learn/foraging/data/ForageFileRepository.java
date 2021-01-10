@@ -66,6 +66,7 @@ public class ForageFileRepository implements ForageRepository {
     }
 
     private void writeAll(List<Forage> forages, LocalDate date) throws DataException {
+
         try (PrintWriter writer = new PrintWriter(getFilePath(date))) {
 
             writer.println(HEADER);

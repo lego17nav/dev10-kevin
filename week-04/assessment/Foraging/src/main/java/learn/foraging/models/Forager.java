@@ -38,4 +38,13 @@ public class Forager {
     public void setState(String state) {
         this.state = state;
     }
+
+    public String getFullName() {
+
+        return getFirstName() + " " + getLastName();
+
+    }
+    public String getIdentifier() {
+        return String.format("%s-%s-%s", getFirstName(),getLastName(),getState().toString());
+    }
 }

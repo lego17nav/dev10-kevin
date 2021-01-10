@@ -23,6 +23,10 @@ public class ForagerRepositoryDouble implements ForagerRepository {
                 .findFirst()
                 .orElse(null);
     }
+    @Override
+    public Forager add(Forager forager) throws DataException {
+        return null;
+    };
 
     @Override
     public List<Forager> findAll() {

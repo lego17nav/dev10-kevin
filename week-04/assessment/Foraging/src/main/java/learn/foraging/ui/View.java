@@ -1,9 +1,6 @@
 package learn.foraging.ui;
 
-import learn.foraging.models.Category;
-import learn.foraging.models.Forage;
-import learn.foraging.models.Forager;
-import learn.foraging.models.Item;
+import learn.foraging.models.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -79,6 +76,17 @@ public class View {
         return Category.values()[io.readInt(message, 1, index) - 1];
     }
 
+    public States getState() {
+        displayHeader("State Category");
+        int index = 1;
+        for (States state : States.values()) {
+            io.printf("%s: %s%n", index++, state);
+        }
+        index--;
+        String message = String.format("Select a state [1-%s]:", index);
+        return States.values()[io.readInt(message,1,index) - 1];
+    }
+
     public Item chooseItem(List<Item> items) {
 
         displayItems(items);
@@ -117,6 +125,15 @@ public class View {
         item.setName(io.readRequiredString("Item Name: "));
         item.setDollarPerKilogram(io.readBigDecimal("$/Kg: ", BigDecimal.ZERO, new BigDecimal("7500.00")));
         return item;
+    }
+
+    public Forager makeForager() {
+        displayHeader(MainMenuOption.ADD_FORAGER.getMessage());
+        Forager forager = new Forager();
+        forager.setFirstName(io.readRequiredString("First Name: "));
+        forager.setLastName(io.readRequiredString("Last Name: "));
+        forager.setState(getState().toString());
+        return forager;
     }
 
     public GenerateRequest getGenerateRequest() {
@@ -192,5 +209,18 @@ public class View {
         for (Item item : items) {
             io.printf("%s: %s, %s, %.2f $/kg%n", item.getId(), item.getName(), item.getCategory(), item.getDollarPerKilogram());
         }
+    }
+
+    public void displayForagers(List<Forager> foragers) {
+
+        if (foragers.size() == 0) {
+            io.println("No Foragers found");
+        }
+        int pos = 1;
+        for (Forager forager : foragers) {
+            io.printf("%s: Name: %s %s, State: %s%n", pos, forager.getFirstName(),
+                    forager.getLastName(), forager.getState());
+        }
+
     }
 }

@@ -20,6 +20,12 @@
             <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- dependency injection support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.7.RELEASE</version>
+        </dependency>
     </dependencies>
 
 </project>
