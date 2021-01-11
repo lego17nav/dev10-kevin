@@ -30,3 +30,5 @@ id,name,category,dollars/kilogram
 29,Herbs,MEDICINAL,25
 30,Acashia,POISONOUS,23
 31,Lemon,MEDICINAL,13
+32,Flower,EDIBLE,41
+33,Acashia  s,EDIBLE,13
