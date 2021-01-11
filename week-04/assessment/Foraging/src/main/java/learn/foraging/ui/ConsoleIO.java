@@ -34,14 +34,14 @@ public class ConsoleIO {
 
     public String readString(String prompt) {
         print(prompt);
-        return scanner.nextLine();
+        return scanner.nextLine().replace(","," ");
     }
 
     public String readRequiredString(String prompt) {
         while (true) {
             String result = readString(prompt);
             if (!result.isBlank()) {
-                return result.replace(',','|');
+                return result;
             }
             println(REQUIRED);
         }
