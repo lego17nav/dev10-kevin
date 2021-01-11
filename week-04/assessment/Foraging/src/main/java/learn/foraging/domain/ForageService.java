@@ -166,4 +166,21 @@ public class ForageService {
             result.addErrorMessage("Item does not exist.");
         }
     }
+
+    public Map<String, Double> streamItemWeight(List<Forage> forages) {
+        Map<String, Double> items = forages.stream()
+                .collect(Collectors.groupingBy(f -> f.getItem().getName().toString(), Collectors.
+                        summingDouble((item -> item.getKilograms()))));
+
+        return items;
+    }
+
+    public Map<String,Long> streamItemCategoryCount(List<Forage> forages) {
+        Map<String, Long> categoryCount =  forages
+                .stream()
+                .collect(Collectors.groupingBy(f -> f.getItem().getCategory().toString(), Collectors.counting()));
+
+        return categoryCount;
+
+    }
 }

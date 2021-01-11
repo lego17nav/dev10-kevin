@@ -44,7 +44,9 @@ public class Forager {
         return getFirstName() + " " + getLastName();
 
     }
+
     public String getIdentifier() {
         return String.format("%s-%s-%s", getFirstName(),getLastName(),getState().toString());
     }
+
 }

@@ -41,7 +41,7 @@ public class ConsoleIO {
         while (true) {
             String result = readString(prompt);
             if (!result.isBlank()) {
-                return result;
+                return result.replace(',','|');
             }
             println(REQUIRED);
         }

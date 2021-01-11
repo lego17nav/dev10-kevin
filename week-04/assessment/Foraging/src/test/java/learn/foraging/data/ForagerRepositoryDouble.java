@@ -25,7 +25,9 @@ public class ForagerRepositoryDouble implements ForagerRepository {
     }
     @Override
     public Forager add(Forager forager) throws DataException {
-        return null;
+        List<Forager> foragers = findAll();
+        foragers.add(forager);
+        return forager;
     };
 
     @Override

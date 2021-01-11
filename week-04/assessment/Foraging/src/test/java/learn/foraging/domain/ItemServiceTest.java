@@ -7,6 +7,7 @@ import learn.foraging.models.Item;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,6 +58,12 @@ class ItemServiceTest {
 
         assertNotNull(result.getPayload());
         assertEquals(2, result.getPayload().getId());
+    }
+
+    void shouldCountTwo() throws DataException {
+
+        Item item = new Item(0, "Test Item", Category.EDIBLE, new BigDecimal("5.00"));
+
     }
 
 }

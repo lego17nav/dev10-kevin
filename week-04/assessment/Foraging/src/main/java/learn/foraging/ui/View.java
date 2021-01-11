@@ -5,6 +5,7 @@ import learn.foraging.models.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class View {
@@ -207,11 +208,41 @@ public class View {
         }
 
         for (Item item : items) {
-            io.printf("%s: %s, %s, %.2f $/kg%n", item.getId(), item.getName(), item.getCategory(), item.getDollarPerKilogram());
+            io.printf("%s: %s, %s, %.2f $/kg%n", item.getId(), item.getName(), item.getCategory(),
+                    item.getDollarPerKilogram());
         }
     }
 
+    public void displayItemWeight(Map<String,Double> itemsWeight) {
+
+        displayHeader(MainMenuOption.REPORT_KG_PER_ITEM.getMessage());
+
+        if (itemsWeight.size() == 0) {
+            io.println("No Items found");
+        }
+
+        itemsWeight.entrySet()
+                .stream().forEach(entry -> System.out.printf("Item: %s %1.2f kg%n", entry.getKey(),entry.getValue()));
+                ;
+    }
+
+    public void displayItemCategoryCount(Map<String,Long> categoryCount) {
+
+        displayHeader(MainMenuOption.REPORT_CATEGORY_VALUE.getMessage());
+
+        if (categoryCount.size() == 0) {
+            io.println("No Items found");
+        }
+
+        categoryCount.entrySet()
+                .stream()
+                .forEach(entry -> System.out.printf("Category: %s total = %d%n",
+                        entry.getKey(),entry.getValue()));
+
+    }
+
     public void displayForagers(List<Forager> foragers) {
+
 
         if (foragers.size() == 0) {
             io.println("No Foragers found");
@@ -220,6 +251,7 @@ public class View {
         for (Forager forager : foragers) {
             io.printf("%s: Name: %s %s, State: %s%n", pos, forager.getFirstName(),
                     forager.getLastName(), forager.getState());
+                    pos++;
         }
 
     }

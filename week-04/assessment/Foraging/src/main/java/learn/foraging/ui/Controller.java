@@ -58,18 +58,16 @@ public class Controller {
                     addItem();
                     break;
                 case REPORT_KG_PER_ITEM:
-                    view.displayStatus(false, "NOT IMPLEMENTED");
-                    view.enterToContinue();
+                    viewItemsWeight();
                     break;
                 case REPORT_CATEGORY_VALUE:
-                    view.displayStatus(false, "NOT IMPLEMENTED");
-                    view.enterToContinue();
-                    break;
-                case GENERATE:
-                    generate();
+                    viewItemCategoryCount();
                     break;
                 case VIEW_FORAGERS:
                     viewForagers();
+                    break;
+                case GENERATE:
+                    generate();
                     break;
             }
         } while (option != MainMenuOption.EXIT);
@@ -83,6 +81,20 @@ public class Controller {
         view.enterToContinue();
     }
 
+    private void viewItemsWeight() {
+        LocalDate date = view.getForageDate();
+        List<Forage> forages = forageService.findByDate(date);
+        view.displayItemWeight(forageService.streamItemWeight(forages));
+        view.enterToContinue();
+    }
+
+    private void viewItemCategoryCount() {
+        LocalDate date = view.getForageDate();
+        List<Forage> forages = forageService.findByDate(date);
+        view.displayItemCategoryCount(forageService.streamItemCategoryCount(forages));
+        view.enterToContinue();
+    }
+
     private void viewItems() {
         view.displayHeader(MainMenuOption.VIEW_ITEMS.getMessage());
         Category category = view.getItemCategory();
@@ -91,6 +103,7 @@ public class Controller {
         view.displayItems(items);
         view.enterToContinue();
     }
+
 
     private void viewForagers() {
         view.displayHeader(MainMenuOption.VIEW_FORAGERS.getMessage());
