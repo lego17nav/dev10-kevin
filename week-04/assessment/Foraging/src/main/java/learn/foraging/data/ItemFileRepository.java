@@ -99,6 +99,7 @@ public class ItemFileRepository implements ItemRepository {
         result.setName(fields[1]);
         result.setCategory(Category.valueOf(fields[2]));
         result.setDollarPerKilogram(new BigDecimal(fields[3]));
+        
         return result;
     }
 

@@ -3,7 +3,8 @@ package learn.foraging.models;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Item {
+public class
+Item {
 
     private int id;
     private String name;
