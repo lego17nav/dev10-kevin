@@ -57,4 +57,14 @@ public class Reservation {
         return null;
     }
 
+    public void setHost(Host host) {
+        this.host = host;
+    }
+    public Host getHost() {return host;}
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+    public Guest getGuest(){return guest;}
+
 }

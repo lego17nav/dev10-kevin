@@ -21,7 +21,8 @@ public class ForageService {
     private final ForagerRepository foragerRepository;
     private final ItemRepository itemRepository;
 
-    public ForageService(ForageRepository forageRepository, ForagerRepository foragerRepository, ItemRepository itemRepository) {
+    public ForageService(ForageRepository forageRepository, ForagerRepository foragerRepository,
+                         ItemRepository itemRepository) {
         this.forageRepository = forageRepository;
         this.foragerRepository = foragerRepository;
         this.itemRepository = itemRepository;

@@ -17,27 +17,7 @@ public class Host {
     private BigDecimal regRate;
     private BigDecimal weekERate;
 
-    public Host() {
-
-    }
-
-    public Host(String id, String lastName, String email, String phone, String address, String city, States state,
-                String pCode, BigDecimal regRate, BigDecimal weekERate) {
-
-        this.id = id;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.pCode = pCode;
-        this.regRate = regRate;
-        this.weekERate = weekERate;
-    }
-
-
-    public String getId() {
+        public String getId() {
         return id;
     }
 
