@@ -16,5 +16,6 @@ public class HostService {
     public List<Host> findAll() {
         return hostFileRepository.findAll().stream()
                 .collect(Collectors.toList());
+
     }
 }

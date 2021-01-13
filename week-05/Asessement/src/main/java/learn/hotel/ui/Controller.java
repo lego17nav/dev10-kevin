@@ -61,13 +61,15 @@ public class Controller {
         } while (option != MainMenuOption.EXIT);
     }
     private void viewByHost() {
-        view.displayHeader(MainMenuOption.VIEW_RESERVATION_BY_HOST.getMessage());
         Host host = getHost();
         List<Reservation> reservations = reservationService.findById(host.getId());
     }
 
     private Host getHost() {
         List<Host> hosts = hostService.findAll();
+        for(Host host : hosts) {
+            System.out.println(host.getLastName());
+        }
         return view.chooseHost(hosts);
     }
 

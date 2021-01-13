@@ -31,7 +31,7 @@ public class HostFileRepository implements HostRepository{
 
                 String[] fields = line.split("," , 10);
 
-                if(fields.length == 9) {
+                if(fields.length == 10) {
                     results.add(toObject(fields));
                 }
 
