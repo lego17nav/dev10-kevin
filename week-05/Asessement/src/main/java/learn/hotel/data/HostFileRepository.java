@@ -4,9 +4,7 @@ import learn.hotel.data.HostRepository;
 import learn.hotel.models.Host;
 import learn.hotel.models.States;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 public class HostFileRepository implements HostRepository{
 
     private static final String header = "id,last_name,email,phone,address,city,state,postal_code,standard_rate" +
-            ",weekend_rate"
+            ",weekend_rate";
     private final String filePath;
 
     public HostFileRepository(String filePath) {
@@ -31,7 +29,7 @@ public class HostFileRepository implements HostRepository{
 
             for (String line = reader.readLine();line != null; reader.readLine()) {
 
-                String[] fields = line.split("," , 9);
+                String[] fields = line.split("," , 10);
 
                 if(fields.length == 9) {
                     results.add(toObject(fields));
@@ -58,7 +56,42 @@ public class HostFileRepository implements HostRepository{
 
     @Override
     public Host add(Host host) throws DataException {
-        return null;
+        List<Host> all = findAll();
+        host.setId(java.util.UUID.randomUUID().toString());
+        all.add(host);
+        return host;
+    }
+
+    private void writeAll(List<Host> hosts) throws DataException {
+        try(PrintWriter writer = new PrintWriter(filePath)) {
+
+            writer.println(header);
+
+            if (hosts == null) {
+                return;
+            }
+
+            for (Host host:hosts) {
+                writer.println(toFile(host));
+            }
+        } catch (FileNotFoundException ex) {
+            throw new DataException(ex);
+        }
+
+    }
+
+    private String toFile(Host host) {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+        host.getId(),
+        host.getLastName(),
+        host.getEmail(),
+        host.getPhone(),
+        host.getAddress(),
+        host.getCity(),
+        host.getState().toString(),
+        host.getpCode(),
+        host.getRegRate().toString(),
+        host.getWeekERate().toString());
     }
 
     private Host toObject(String[] fields) {
@@ -77,5 +110,7 @@ public class HostFileRepository implements HostRepository{
 
         return host;
     }
+
+
 
 }

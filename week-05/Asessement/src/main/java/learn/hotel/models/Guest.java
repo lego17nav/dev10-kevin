@@ -2,7 +2,7 @@ package learn.hotel.models;
 
 public class Guest {
 
-    private String guestId;
+    private int guestId;
     private String firstName;
     private String lastName;
     private String email;
@@ -10,11 +10,11 @@ public class Guest {
     private States state;
 
 
-    public String getGuestId() {
+    public int getGuestId() {
         return guestId;
     }
 
-    public void setGuestId(String guestId) {
+    public void setGuestId(int guestId) {
         this.guestId = guestId;
     }
 
