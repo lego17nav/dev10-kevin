@@ -50,5 +50,6 @@ public enum States {
     WA,
     WV,
     WI,
-    WY
+    WY,
+    DC
 }

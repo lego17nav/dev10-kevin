@@ -67,9 +67,6 @@ public class Controller {
 
     private Host getHost() {
         List<Host> hosts = hostService.findAll();
-        for(Host host : hosts) {
-            System.out.println(host.getLastName());
-        }
         return view.chooseHost(hosts);
     }
 

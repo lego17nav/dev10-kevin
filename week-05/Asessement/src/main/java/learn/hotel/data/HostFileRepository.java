@@ -27,9 +27,9 @@ public class HostFileRepository implements HostRepository{
 
             reader.readLine();
 
-            for (String line = reader.readLine();line != null; reader.readLine()) {
+            for (String line = reader.readLine();line != null; line = reader.readLine()) {
 
-                String[] fields = line.split("," , 10);
+                String[] fields = line.split("," , -1);
 
                 if(fields.length == 10) {
                     results.add(toObject(fields));

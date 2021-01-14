@@ -50,7 +50,7 @@ public class View {
         }
         int index = 1;
         for (Host host : hosts.stream().collect(Collectors.toList())) {
-            io.printf("%s: %s, %s, %s, %s", index++, host.getLastName(),host.getEmail(),
+            io.printf("%s: %s, %s, %s, %s%n", index++, host.getLastName(),host.getEmail(),
                     host.getPhone(), host.getAddress());
         }
         index --;
