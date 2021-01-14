@@ -18,4 +18,18 @@ public class HostService {
                 .collect(Collectors.toList());
 
     }
+
+    public List<Host> findByLastName(String prefix) {
+        return findAll().stream()
+                .filter(h -> h.getLastName().startsWith(prefix))
+                .collect(Collectors.toList());
+    }
+
+    public List<Host> findByHostId(String hostId) {
+        List<Host> results = findAll().stream()
+                .filter(h -> h.getId().equals(hostId))
+                .collect(Collectors.toList());
+
+        return results;
+    }
 }

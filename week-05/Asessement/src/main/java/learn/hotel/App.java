@@ -19,7 +19,7 @@ public class App {
         ReservationFileRepository reservationFileRepository =
                 new ReservationFileRepository("./data/reservations");
 
-        GuestService guestService = new GuestService();
+        GuestService guestService = new GuestService(guestFileRepository);
         HostService hostService = new HostService(hostFileRepository);
         ReservationService reservationService = new ReservationService(guestFileRepository,
                 hostFileRepository,reservationFileRepository);

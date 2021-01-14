@@ -26,9 +26,12 @@ public class GuestFileRepository implements GuestRepository {
 
     @Override
     public List<Guest> findAll() {
-        List<Guest> all = new ArrayList<>();
+        ArrayList<Guest> all = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            for(String line = reader.readLine();reader != null; line = reader.readLine()) {
+
+            reader.readLine();
+
+            for(String line = reader.readLine();line != null; line = reader.readLine()) {
 
                 String[] fields = line.split(",",-1);
                 if(fields.length == 6) {

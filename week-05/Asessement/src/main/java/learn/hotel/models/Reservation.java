@@ -5,20 +5,29 @@ import java.time.LocalDate;
 
 public class Reservation {
 
+    private String hostId;
     private Host host;
     private Guest guest;
-    private String id;
+    private int reservationId;
     private LocalDate startDate;
     private LocalDate endDate;
     private int guestId;
     private double totalPrice;
 
-    public String getId() {
-        return id;
+    public int getReservationId() {
+        return reservationId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setReservationId(int id) {
+        this.reservationId = reservationId;
+    }
+
+    public String getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(String hostId) {
+        this.hostId = hostId;
     }
 
     public LocalDate getStartDate() {

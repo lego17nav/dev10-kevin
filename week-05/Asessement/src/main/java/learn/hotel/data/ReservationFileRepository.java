@@ -5,6 +5,7 @@ import learn.hotel.models.Reservation;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ public class ReservationFileRepository implements ReservationRepository{
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 String[] fields = line.split(",", -1);
                 if(fields.length == 5) {
-                    result.add(toObject(fields));
+                    result.add(toObject(fields, id));
                 }
 
             }
@@ -44,8 +45,21 @@ public class ReservationFileRepository implements ReservationRepository{
     }
 
     @Override
-    public Reservation add(Reservation reservation) {
-        return null;
+    public Reservation add(Reservation reservation) throws DataException {
+        if(reservation == null) {
+            return null;
+        }
+        List<Reservation> all = findById(reservation.getHostId());
+
+        int nextId = all.stream()
+                .mapToInt(r -> r.getReservationId())
+                .max()
+                .orElse(0) + 1;
+        reservation.setReservationId(nextId);
+        all.add(reservation);
+        writeAll(all,reservation.getHostId());
+
+        return reservation;
     }
 
     @Override
@@ -55,15 +69,43 @@ public class ReservationFileRepository implements ReservationRepository{
 
     private String getFilePath(String path) {return Paths.get(directory, path + ".csv").toString();}
 
-    private Reservation toObject(String[] fields) {
+    private Reservation toObject(String[] fields, String hostID) {
         //id,start_date,end_date,guest_id,total
         Reservation result = new Reservation();
-        result.setGuestId(Integer.parseInt(fields[0]));
+        result.setReservationId(Integer.parseInt(fields[0]));
         result.setStartDate(LocalDate.parse(fields[1], formatter));
         result.setEndDate(LocalDate.parse(fields[2], formatter));
-        result.setId(fields[3]);
+        result.setGuestId(Integer.parseInt(fields[3]));
         result.setTotalPrice(Double.valueOf(fields[4]));
+        result.setHostId(hostID);
 
         return result;
     }
+
+    private String toString(Reservation reservation) {
+        // id,start_date,end_date,guest_id,total
+        return String.format("%s,%s,%s,%s,%s",
+                reservation.getReservationId(),
+                reservation.getStartDate(),
+                reservation.getEndDate(),
+                reservation.getGuestId(),
+                reservation.getTotalPrice());
+    }
+
+    private void writeAll(List<Reservation> reservations,String hostId) throws DataException {
+
+        try (PrintWriter writer = new PrintWriter(getFilePath(hostId))) {
+
+            writer.println(HEADER);
+
+            for(Reservation reservation: reservations) {
+                writer.println(toString(reservation));
+            }
+
+        } catch (IOException ex) {
+            throw new DataException(ex);
+        }
+
+    }
+
 }

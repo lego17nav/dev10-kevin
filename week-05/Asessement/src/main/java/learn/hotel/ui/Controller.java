@@ -4,6 +4,8 @@ import learn.hotel.domain.GuestService;
 import learn.hotel.domain.HostService;
 import learn.hotel.domain.ReservationService;
 import learn.hotel.data.DataException;
+import learn.hotel.domain.Result;
+import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
@@ -43,19 +45,15 @@ public class Controller {
                 case VIEW_RESERVATION_BY_HOST:
                     viewByHost();
                     break;
-                /*case VIEW_ITEMS:
-                    viewItems();
+                case MAKE_RESERVATION:
+                    addReservation();
                     break;
-                case ADD_FORAGE:
-                    addForage();
+                case EDIT_RESERVATION:
+                    //addForage();
                     break;
-                case ADD_FORAGER:
-                    addForager();
+                case CANCEL_RESERVATION:
+                    //addForager();
                     break;
-                case ADD_ITEM:
-                    addItem();
-                    break;*/
-
             }
 
         } while (option != MainMenuOption.EXIT);
@@ -63,11 +61,37 @@ public class Controller {
     private void viewByHost() {
         Host host = getHost();
         List<Reservation> reservations = reservationService.findById(host.getId());
+        view.displayReservations(reservations);
     }
 
     private Host getHost() {
-        List<Host> hosts = hostService.findAll();
+        String hostLastNamePrefix = view.getHostLastName();
+        List<Host> hosts = hostService.findByLastName(hostLastNamePrefix);
         return view.chooseHost(hosts);
     }
 
+    private Guest getGuest() {
+        String guestLasNamePrefix = view.getGuestLastName();
+        List<Guest> guests = guestService.findByLastName(guestLasNamePrefix);
+        return view.chooseGuest(guests);
+    }
+
+    private void addReservation() throws DataException {
+        view.displayHeader(MainMenuOption.MAKE_RESERVATION.getMessage());
+        Host host = getHost();
+        Guest guest = getGuest();
+        view.displayConfirmation("Host is",host.getLastName());
+        view.displayConfirmation("Guest Name is", guest.getLastName());
+        List<Reservation> reservations = reservationService.findById(host.getId());
+        view.displayReservations(reservations);
+        Reservation reservation = view.createReservation(host, guest);
+        Result<Reservation> result = reservationService.add(reservation);
+        if(!result.isSuccess()) {
+            view.displayStatus(false,result.getErrorMessages());
+        } else {
+            String successMessage = String.format("Reservation %s has been made",
+                    result.getPayload().getReservationId());
+            view.displayStatus(true, successMessage);
+        }
+    }
 }

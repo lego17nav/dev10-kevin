@@ -1,6 +1,8 @@
 package learn.hotel.ui;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class ConsoleIO {
@@ -33,6 +35,17 @@ public class ConsoleIO {
         print(prompt);
         return scanner.nextLine().replace(",", " ");
 
+    }
+
+    public LocalDate readLocalDate(String prompt) {
+        while (true) {
+            String input = readRequiredString(prompt);
+            try {
+                return LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException ex) {
+                println(INVALID_DATE);
+            }
+        }
     }
 
     public int readInt(String prompt) {

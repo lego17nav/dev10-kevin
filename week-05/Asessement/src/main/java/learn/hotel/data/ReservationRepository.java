@@ -8,7 +8,7 @@ public interface ReservationRepository {
 
     List<Reservation> findById(String id);
 
-    Reservation add(Reservation reservation);
+    Reservation add(Reservation reservation) throws DataException;
 
     boolean update(Reservation reservation) throws DataException;
 }
