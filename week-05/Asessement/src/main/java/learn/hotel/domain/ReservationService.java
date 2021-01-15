@@ -8,6 +8,9 @@ import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +53,7 @@ public class ReservationService {
             return result;
         }
 
+        reservation.setTotalPrice(calculateTotal(reservation));
         result.setPayload(reservationFileRepository.add(reservation));
 
         return result;
@@ -112,6 +116,10 @@ public class ReservationService {
                         result.addErrorMessage("Reservation Date cannot be in the past");
                     }
 
+                    if (reservation.getStartDate().isEqual(reservation.getEndDate())) {
+                        result.addErrorMessage("Check in can't be the same day as checkout");
+                    }
+
                 });
 
         if(reservation.getEndDate().isBefore(reservation.getStartDate())) {
@@ -120,6 +128,25 @@ public class ReservationService {
 
                 }
 
+    private BigDecimal calculateTotal(Reservation reservation) {
+
+        LocalDate startDate = reservation.getStartDate();
+        LocalDate endDate = reservation.getEndDate();
+
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        for(LocalDate currentDate = startDate; startDate.isBefore(endDate.minusDays(1));
+            currentDate = currentDate.plusDays(1)) {
+            if(currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
+                    currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+                totalPrice.add(reservation.getHost().getWeekERate());
+            } else {
+                totalPrice.add(reservation.getHost().getRegRate());
+            }
+        }
+        return totalPrice;
+
+    }
 }
 
 

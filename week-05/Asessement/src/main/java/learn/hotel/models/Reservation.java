@@ -12,14 +12,14 @@ public class Reservation {
     private LocalDate startDate;
     private LocalDate endDate;
     private int guestId;
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     public int getReservationId() {
         return reservationId;
     }
 
     public void setReservationId(int id) {
-        this.reservationId = reservationId;
+        this.reservationId = id;
     }
 
     public String getHostId() {
@@ -54,11 +54,11 @@ public class Reservation {
         this.guestId = guestId;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

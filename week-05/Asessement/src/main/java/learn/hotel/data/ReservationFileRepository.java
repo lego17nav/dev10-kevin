@@ -76,7 +76,7 @@ public class ReservationFileRepository implements ReservationRepository{
         result.setStartDate(LocalDate.parse(fields[1], formatter));
         result.setEndDate(LocalDate.parse(fields[2], formatter));
         result.setGuestId(Integer.parseInt(fields[3]));
-        result.setTotalPrice(Double.valueOf(fields[4]));
+        result.setTotalPrice(new BigDecimal(String.valueOf(fields[4])));
         result.setHostId(hostID);
 
         return result;

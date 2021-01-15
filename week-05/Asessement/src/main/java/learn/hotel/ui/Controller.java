@@ -36,7 +36,6 @@ public class Controller {
         view.displayHeader("Goodbye.");
     }
 
-
     private void runAppLoop() throws DataException {
         MainMenuOption option;
         do {
@@ -58,6 +57,7 @@ public class Controller {
 
         } while (option != MainMenuOption.EXIT);
     }
+
     private void viewByHost() {
         Host host = getHost();
         List<Reservation> reservations = reservationService.findById(host.getId());
@@ -80,8 +80,8 @@ public class Controller {
         view.displayHeader(MainMenuOption.MAKE_RESERVATION.getMessage());
         Host host = getHost();
         Guest guest = getGuest();
-        view.displayConfirmation("Host is",host.getLastName());
-        view.displayConfirmation("Guest Name is", guest.getLastName());
+        view.displayConfirmation("Host is%n",host.getLastName());
+        view.displayConfirmation("Guest Name is%n", guest.getLastName());
         List<Reservation> reservations = reservationService.findById(host.getId());
         view.displayReservations(reservations);
         Reservation reservation = view.createReservation(host, guest);
@@ -89,8 +89,8 @@ public class Controller {
         if(!result.isSuccess()) {
             view.displayStatus(false,result.getErrorMessages());
         } else {
-            String successMessage = String.format("Reservation %s has been made",
-                    result.getPayload().getReservationId());
+            String successMessage = String.format("Reservation for %s has been made.",
+                    result.getPayload().getGuest().getLastName());
             view.displayStatus(true, successMessage);
         }
     }
