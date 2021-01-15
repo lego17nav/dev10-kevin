@@ -80,8 +80,8 @@ public class Controller {
         view.displayHeader(MainMenuOption.MAKE_RESERVATION.getMessage());
         Host host = getHost();
         Guest guest = getGuest();
-        view.displayConfirmation("Host is%n",host.getLastName());
-        view.displayConfirmation("Guest Name is%n", guest.getLastName());
+        view.displayConfirmation("Host:",host.getLastName());
+        view.displayConfirmation("Guest:", guest.getLastName());
         List<Reservation> reservations = reservationService.findById(host.getId());
         view.displayReservations(reservations);
         Reservation reservation = view.createReservation(host, guest);

@@ -1,6 +1,7 @@
 package learn.hotel.models;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class Reservation {
@@ -59,11 +60,29 @@ public class Reservation {
     }
 
     public void setTotalPrice(BigDecimal totalPrice) {
+
         this.totalPrice = totalPrice;
+
     }
 
     public BigDecimal getValue() {
-        return null;
+
+        LocalDate calcStartDate = startDate;
+        LocalDate calcEndDate = endDate;
+        BigDecimal weekdayRate = host.getRegRate();
+        BigDecimal weekEndRate = host.getWeekERate();
+        BigDecimal finalPrice = new BigDecimal("0");
+
+        for(LocalDate currentDate = calcStartDate; currentDate.isBefore(calcEndDate.minusDays(1));
+            currentDate = currentDate.plusDays(1)) {
+            if(currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
+                    currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+                finalPrice.add(weekEndRate);
+            } else {
+                finalPrice.add(weekdayRate);
+            }
+        }
+        return finalPrice;
     }
 
     public void setHost(Host host) {

@@ -1,5 +1,6 @@
 package learn.hotel.data;
 
+import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
 import java.io.BufferedReader;
@@ -76,7 +77,7 @@ public class ReservationFileRepository implements ReservationRepository{
         result.setStartDate(LocalDate.parse(fields[1], formatter));
         result.setEndDate(LocalDate.parse(fields[2], formatter));
         result.setGuestId(Integer.parseInt(fields[3]));
-        result.setTotalPrice(new BigDecimal(String.valueOf(fields[4])));
+        result.setTotalPrice(new BigDecimal(fields[4]));
         result.setHostId(hostID);
 
         return result;
@@ -89,7 +90,7 @@ public class ReservationFileRepository implements ReservationRepository{
                 reservation.getStartDate(),
                 reservation.getEndDate(),
                 reservation.getGuestId(),
-                reservation.getTotalPrice());
+                reservation.getValue());
     }
 
     private void writeAll(List<Reservation> reservations,String hostId) throws DataException {

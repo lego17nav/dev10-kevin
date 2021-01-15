@@ -10,6 +10,7 @@ import learn.hotel.models.Reservation;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.cert.CertSelector;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ReservationService {
     private final ReservationFileRepository reservationFileRepository;
 
     public ReservationService(GuestFileRepository guestFileRepository, HostFileRepository hostFileRepository
-    , ReservationFileRepository reservationFileRepository) {
+            , ReservationFileRepository reservationFileRepository) {
         this.guestFileRepository = guestFileRepository;
         this.hostFileRepository = hostFileRepository;
         this.reservationFileRepository = reservationFileRepository;
@@ -38,10 +39,12 @@ public class ReservationService {
 
         List<Reservation> result = reservationFileRepository.findById(id);
 
-        for(Reservation reservation: result) {
+        for (Reservation reservation : result) {
             reservation.setGuest(guestMap.get(reservation.getGuestId()));
             reservation.setHost(hostMap.get(reservation.getHostId()));
         }
+
+
 
         return result;
 
@@ -49,12 +52,15 @@ public class ReservationService {
 
     public Result<Reservation> add(Reservation reservation) throws DataException {
         Result<Reservation> result = validate(reservation);
-        if(!result.isSuccess()) {
+        Host host = reservation.getHost();
+        Guest guest = reservation.getGuest();
+        if (!result.isSuccess()) {
             return result;
         }
 
-        reservation.setTotalPrice(calculateTotal(reservation));
+        //reservation.setTotalPrice(calculateTotal(reservation));
         result.setPayload(reservationFileRepository.add(reservation));
+        Host host1 = reservation.getHost();
 
         return result;
     }
@@ -63,10 +69,10 @@ public class ReservationService {
     public Result<Reservation> validate(Reservation reservation) {
 
         Result<Reservation> result = validateNulls(reservation);
-        if(!result.isSuccess()) {
+        if (!result.isSuccess()) {
             return result;
         }
-        validateDate(reservation,result);
+        validateDate(reservation, result);
 
         return result;
     }
@@ -79,11 +85,11 @@ public class ReservationService {
             result.addErrorMessage("Nothing to save");
         }
 
-        if(reservation.getStartDate() == null) {
+        if (reservation.getStartDate() == null) {
             result.addErrorMessage("Start Date cannot be empty");
         }
 
-        if(reservation.getEndDate() == null) {
+        if (reservation.getEndDate() == null) {
             result.addErrorMessage("End Date cannot be empty");
         }
         if (reservation.getGuest() == null) {
@@ -111,40 +117,19 @@ public class ReservationService {
                     ) {
                         result.addErrorMessage("This EndDate overlaps with some dates");
                     }
-                    if ((reservation.getStartDate().isBefore(LocalDate.now()))||
-                    reservation.getEndDate().isBefore(LocalDate.now())) {
-                        result.addErrorMessage("Reservation Date cannot be in the past");
-                    }
-
-                    if (reservation.getStartDate().isEqual(reservation.getEndDate())) {
-                        result.addErrorMessage("Check in can't be the same day as checkout");
-                    }
 
                 });
 
-        if(reservation.getEndDate().isBefore(reservation.getStartDate())) {
+        if (reservation.getEndDate().isBefore(reservation.getStartDate())) {
             result.addErrorMessage("End Date cannot be before start date.");
         }
-
-                }
-
-    private BigDecimal calculateTotal(Reservation reservation) {
-
-        LocalDate startDate = reservation.getStartDate();
-        LocalDate endDate = reservation.getEndDate();
-
-        BigDecimal totalPrice = new BigDecimal("0");
-
-        for(LocalDate currentDate = startDate; startDate.isBefore(endDate.minusDays(1));
-            currentDate = currentDate.plusDays(1)) {
-            if(currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
-                    currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-                totalPrice.add(reservation.getHost().getWeekERate());
-            } else {
-                totalPrice.add(reservation.getHost().getRegRate());
-            }
+        if (reservation.getStartDate().isEqual(reservation.getEndDate())) {
+            result.addErrorMessage("Check in can't be the same day as checkout");
         }
-        return totalPrice;
+        if ((reservation.getStartDate().isBefore(LocalDate.now())) ||
+                reservation.getEndDate().isBefore(LocalDate.now())) {
+            result.addErrorMessage("Reservation Date cannot be in the past");
+        }
 
     }
 }

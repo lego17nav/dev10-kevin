@@ -1,5 +1,6 @@
 package learn.hotel.data;
 
+import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
 import java.util.List;

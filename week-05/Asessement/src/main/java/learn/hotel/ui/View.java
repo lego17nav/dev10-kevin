@@ -168,6 +168,6 @@ public class View {
     }
 
     public void displayConfirmation(String prompt, String name) {
-        io.printf("%s : %s",prompt,name);
+        io.printf("%s : %s%n",prompt,name);
     }
 }
