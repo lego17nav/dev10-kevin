@@ -50,21 +50,50 @@ public class ReservationFileRepository implements ReservationRepository{
         if(reservation == null) {
             return null;
         }
-        List<Reservation> all = findById(reservation.getHostId());
+        List<Reservation> all = findById(reservation.getHost().getId());
+        all.stream()
+                .forEach(r -> r.setHost(reservation.getHost()));
 
         int nextId = all.stream()
                 .mapToInt(r -> r.getReservationId())
                 .max()
                 .orElse(0) + 1;
+
         reservation.setReservationId(nextId);
         all.add(reservation);
-        writeAll(all,reservation.getHostId());
+        writeAll(all,reservation.getHost().getId());
 
         return reservation;
     }
 
     @Override
     public boolean update(Reservation reservation) throws DataException {
+
+        List<Reservation> reservations = findById(reservation.getHostId());
+        reservations.stream().forEach(r -> r.setHost(reservation.getHost()));
+
+        for(int i = 0; i < reservations.size(); i++) {
+            if(reservations.get(i).getReservationId() == reservation.getReservationId()) {
+                reservations.set(i,reservation);
+                writeAll(reservations,reservation.getHostId());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean delete(Reservation reservation) throws DataException {
+
+        List<Reservation> reservations = findById(reservation.getHostId());
+        reservations.stream().forEach(r -> r.setHost(reservation.getHost()));
+
+        for(int i = 0; i < reservations.size(); i++) {
+            if(reservations.get(i).getReservationId() == reservation.getReservationId()) {
+                reservations.remove(i);
+                writeAll(reservations,reservation.getHostId());
+                return true;
+            }
+        }
         return false;
     }
 

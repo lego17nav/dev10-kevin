@@ -48,7 +48,7 @@ public class Controller {
                     addReservation();
                     break;
                 case EDIT_RESERVATION:
-                    //addForage();
+                    updateReservation();
                     break;
                 case CANCEL_RESERVATION:
                     //addForager();
@@ -65,9 +65,11 @@ public class Controller {
     }
 
     private Host getHost() {
+
         String hostLastNamePrefix = view.getHostLastName();
         List<Host> hosts = hostService.findByLastName(hostLastNamePrefix);
         return view.chooseHost(hosts);
+
     }
 
     private Guest getGuest() {
@@ -76,10 +78,55 @@ public class Controller {
         return view.chooseGuest(guests);
     }
 
+    private void updateReservation() throws DataException{
+        view.displayHeader(MainMenuOption.EDIT_RESERVATION.getMessage());
+        Host host = getHost();
+        if(host != null) {
+            List<Reservation> reservations = reservationService.findById(host.getId());
+            List<Guest> guests = guestService.findAll();
+            Reservation reservation = view.chooseReservation(reservations, guests);
+            view.pressEnter();
+            try {
+                Reservation reservationUpdated = view.updateReservation(reservation);
+                Result<Reservation> result = reservationService.update(reservation);
+                if (!result.isSuccess()) {
+                    view.displayStatus(false, result.getErrorMessages());
+                } else {
+                    String successMessage = String.format("Reservation for %s has been made.",
+                            result.getPayload().getGuest().getLastName());
+                    view.displayStatus(true, successMessage);
+                }
+            } catch (NullPointerException ex) {
+                view.displayHeader("Nothing to update");
+                view.pressEnter();
+            }
+        }
+    }
+
+    private void cancelReservation() throws DataException {
+        view.displayHeader(MainMenuOption.CANCEL_RESERVATION.getMessage());
+        Host host = getHost();
+        if(host != null) {
+            List<Reservation> reservations = reservationService.findById(host.getId());
+            List<Guest> guests = guestService.findAll();
+            Reservation reservation = view.chooseReservation(reservations, guests);
+            view.pressEnter();
+            try {
+                if(view.cancelReservation(reservation)) {
+                    reservationService.deleteReservation(reservation);
+                }
+            }
+            catch (NullPointerException e) {
+                view.displayStatus(false,"Unable to cancel Reservation");
+            }
+        }
+    }
+
     private void addReservation() throws DataException {
         view.displayHeader(MainMenuOption.MAKE_RESERVATION.getMessage());
         Host host = getHost();
         Guest guest = getGuest();
+        try {
         view.displayConfirmation("Host:",host.getLastName());
         view.displayConfirmation("Guest:", guest.getLastName());
         List<Reservation> reservations = reservationService.findById(host.getId());
@@ -92,6 +139,9 @@ public class Controller {
             String successMessage = String.format("Reservation for %s has been made.",
                     result.getPayload().getGuest().getLastName());
             view.displayStatus(true, successMessage);
+        }
+        } catch(NullPointerException ex) {
+            view.displayStatus(false, "Error in Making reservation");
         }
     }
 }

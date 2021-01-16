@@ -65,6 +65,20 @@ public class ReservationService {
         return result;
     }
 
+    public Result<Reservation> update(Reservation reservation) throws DataException {
+
+        Result<Reservation> result = validate(reservation);
+
+        if (result.isSuccess()) {
+            if (reservationFileRepository.update(reservation)) {
+                result.setPayload(reservation);
+            } else {
+                String message = String.format("An error occur while updating the reservation");
+            }
+        }
+        return result;
+    }
+
 
     public Result<Reservation> validate(Reservation reservation) {
 
@@ -84,7 +98,6 @@ public class ReservationService {
         if (reservation == null) {
             result.addErrorMessage("Nothing to save");
         }
-
         if (reservation.getStartDate() == null) {
             result.addErrorMessage("Start Date cannot be empty");
         }
@@ -99,6 +112,14 @@ public class ReservationService {
             result.addErrorMessage("Host cannot be empty");
         }
         return result;
+    }
+
+    public Result<Reservation> deleteReservation(Reservation reservation) throws DataException{
+        Result<Reservation> results = new Result<>();
+        if(!reservationFileRepository.delete(reservation)) {
+            results.addErrorMessage("Reservation Wasn't found");
+        }
+        return results;
     }
 
     private void validateDate(Reservation reservation, Result<Reservation> result) {

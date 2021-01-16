@@ -22,6 +22,7 @@ public class HostService {
     public List<Host> findByLastName(String prefix) {
         return findAll().stream()
                 .filter(h -> h.getLastName().startsWith(prefix))
+                .sorted((h1,h2) -> h1.getLastName().compareTo(h2.getLastName()))
                 .collect(Collectors.toList());
     }
 

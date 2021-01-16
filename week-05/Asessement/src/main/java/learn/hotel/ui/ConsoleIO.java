@@ -1,5 +1,7 @@
 package learn.hotel.ui;
 
+import learn.hotel.data.DataException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -39,7 +41,21 @@ public class ConsoleIO {
 
     public LocalDate readLocalDate(String prompt) {
         while (true) {
+            String input = readString(prompt);
+            try {
+                return LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException ex) {
+                println(INVALID_DATE);
+            }
+        }
+    }
+
+    public LocalDate readLocalDateUpdate(String prompt) {
+        while (true) {
             String input = readRequiredString(prompt);
+            if(input.isBlank() || input == null) {
+                return null;
+            }
             try {
                 return LocalDate.parse(input, formatter);
             } catch (DateTimeParseException ex) {
@@ -76,5 +92,11 @@ public class ConsoleIO {
             }
             println(REQUIRED);
         }
+    }
+
+    public void enterContinue() {
+        System.out.println("Press ok to Continue");
+        scanner.nextLine();
+        System.out.flush();
     }
 }

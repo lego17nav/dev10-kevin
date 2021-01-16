@@ -5,7 +5,9 @@ import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 import learn.hotel.models.States;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class View {
@@ -42,6 +44,10 @@ public class View {
     public void displayException(Exception ex) {
         displayHeader("A critical error occurred:");
         io.println(ex.getMessage());
+    }
+
+    public void pressEnter() {
+        io.enterContinue();
     }
 
     public Host chooseHost(List<Host> hosts) {
@@ -90,6 +96,34 @@ public class View {
         return guests.get(index - 1);
     }
 
+    public Reservation chooseReservation(List<Reservation> reservations, List<Guest> guests) {
+        displayHeader("Select a reservation you want to update");
+        Map<Integer, Guest> mapGuest = guests.stream()
+                .collect(Collectors.toMap(g -> g.getGuestId(), g -> g));
+
+        if (reservations.size() == 0) {
+            io.println("No Reservations found");
+            return null;
+        }
+        int index = 1;
+        for (Reservation reservation : reservations.stream().collect(Collectors.toList())) {
+            io.printf("%s: %s, %s, %s - %s%n", index++, mapGuest.get(reservation.getGuestId()).getFirstName(),
+                    mapGuest.get(reservation.getGuestId()).getLastName(),
+                    reservation.getStartDate(),
+                    reservation.getEndDate());
+        }
+        index--;
+
+        io.println("0: Exit");
+        String message = String.format("Select a reservation by their index [0-%s]", index);
+
+        index = io.readInt(message, 0, index);
+        if (index <= 0) {
+            return null;
+        }
+        return reservations.get(index - 1);
+    }
+
     public void displayHosts(List<Host> hosts) {
 
         if (hosts.size() == 0) {
@@ -101,6 +135,25 @@ public class View {
                     host.getPhone(), host.getAddress(), host.getCity());
         }
     }
+
+    public Reservation updateReservation(Reservation reservation) {
+        while(true) {
+            displayHeader("Updating the reservation");
+            LocalDate updateStartDate = io.readLocalDateUpdate("Start Date" + reservation.getStartDate().toString());
+            LocalDate updateEndDate = io.readLocalDateUpdate("End Date" + reservation.getEndDate().toString());
+            String confirm = io.readString("Update Date?[Y/N]");
+            if(confirm.charAt(0) == 'Y') {
+                if(updateStartDate != null) {
+                    reservation.setStartDate(updateStartDate);
+                }
+                if(updateEndDate != null) {
+                    reservation.setEndDate(updateEndDate);
+                }
+                return reservation;
+            }
+        }
+    }
+
 
     public void displayGuests(List<Guest> guests) {
 
@@ -126,14 +179,25 @@ public class View {
         }
     }
 
+    public boolean cancelReservation(Reservation reservation) {
+        io.printf("Cancel the following reservation: %n" +
+                "%s %s : From %s to %s%n",
+                reservation.getGuest().getFirstName(),
+                reservation.getGuest().getLastName(),
+                reservation.getStartDate(),
+                reservation.getEndDate());
+        String confirm = io.readRequiredString("Cancel the following reservation? [Y/N]:");
+        return confirm.equals("Y");
+    }
+
     public Reservation createReservation(Host host, Guest guest) {
         Reservation reservation = new Reservation();
         reservation.setHost(host);
         reservation.setGuest(guest);
         reservation.setHostId(host.getId());
         reservation.setGuestId(guest.getGuestId());
-        reservation.setStartDate(io.readLocalDate("Reservation Start Date [yyyy-MM-dd]"));
-        reservation.setEndDate(io.readLocalDate("Reservation End Date [yyyy-MM-dd]"));
+        reservation.setStartDate(io.readLocalDate("Reservation Start Date [yyyy-MM-dd]:"));
+        reservation.setEndDate(io.readLocalDate("Reservation End Date [yyyy-MM-dd]:"));
         return reservation;
     }
 

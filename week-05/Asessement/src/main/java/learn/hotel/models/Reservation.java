@@ -73,13 +73,13 @@ public class Reservation {
         BigDecimal weekEndRate = host.getWeekERate();
         BigDecimal finalPrice = new BigDecimal("0");
 
-        for(LocalDate currentDate = calcStartDate; currentDate.isBefore(calcEndDate.minusDays(1));
+        for(LocalDate currentDate = calcStartDate; currentDate.isBefore(calcEndDate);
             currentDate = currentDate.plusDays(1)) {
             if(currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
                     currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-                finalPrice.add(weekEndRate);
+                finalPrice = finalPrice.add(weekEndRate);
             } else {
-                finalPrice.add(weekdayRate);
+                finalPrice = finalPrice.add(weekdayRate);
             }
         }
         return finalPrice;
