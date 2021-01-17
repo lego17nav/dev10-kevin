@@ -20,7 +20,6 @@ public class GuestFileRepository implements GuestRepository {
 
     @Override
     public Guest findByID(int id) {
-
         return null;
     }
 
@@ -46,7 +45,6 @@ public class GuestFileRepository implements GuestRepository {
 
     @Override
     public Guest add(Guest guest) throws DataException {
-        List<Guest> all = findAll();
         return null;
     }
 

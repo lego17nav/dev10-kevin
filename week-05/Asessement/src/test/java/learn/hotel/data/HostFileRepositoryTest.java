@@ -36,7 +36,7 @@ class HostFileRepositoryTest {
         List<Host> all = hostFileRepository.findAll();
         assertEquals(10,all.size());
     }
-
+    @Test
     void shouldAdd() {
         //id,last_name,email,phone,address,city,state,postal_code,standard_rate,weekend_rate
         List<Host> all = hostFileRepository.findAll();
@@ -45,5 +45,10 @@ class HostFileRepositoryTest {
 
         all.add(host);
         assertEquals(11,all.size());
+    }
+
+    void shouldFindById() {
+        Host host = hostFileRepository.findById("3edda6bc-ab95-49a8-8962-d50b53f84b15");
+        assertNotNull(host);
     }
 }

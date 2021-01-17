@@ -24,7 +24,7 @@ public class ForagerServiceTest {
     void shouldReturnAll() throws DataException {
         assertEquals(1,service.findAll().size());
     }
-
+    @Test
     void shouldNotSaveNullForager() throws DataException {
         Forager forager = null;
         Result<Forager> result = service.add(forager);
@@ -38,6 +38,9 @@ public class ForagerServiceTest {
         forager.setState(States.VA.toString());
         Result<Forager> result = service.add(forager);
         assertFalse(result.isSuccess());
+    }
+    void shouldMakeOne() throws DataException {
+
     }
 
     void shouldNotSaveBlankLastName() throws DataException {

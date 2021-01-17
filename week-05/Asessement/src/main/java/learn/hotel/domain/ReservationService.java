@@ -1,9 +1,6 @@
 package learn.hotel.domain;
 
-import learn.hotel.data.DataException;
-import learn.hotel.data.ReservationFileRepository;
-import learn.hotel.data.GuestFileRepository;
-import learn.hotel.data.HostFileRepository;
+import learn.hotel.data.*;
 import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
@@ -19,12 +16,12 @@ import java.util.stream.Collectors;
 
 public class ReservationService {
 
-    private final GuestFileRepository guestFileRepository;
-    private final HostFileRepository hostFileRepository;
-    private final ReservationFileRepository reservationFileRepository;
+    private final GuestRepository guestFileRepository;
+    private final HostRepository hostFileRepository;
+    private final ReservationRepository reservationFileRepository;
 
-    public ReservationService(GuestFileRepository guestFileRepository, HostFileRepository hostFileRepository
-            , ReservationFileRepository reservationFileRepository) {
+    public ReservationService(GuestRepository guestFileRepository, HostRepository hostFileRepository
+            , ReservationRepository reservationFileRepository) {
         this.guestFileRepository = guestFileRepository;
         this.hostFileRepository = hostFileRepository;
         this.reservationFileRepository = reservationFileRepository;
