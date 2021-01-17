@@ -76,4 +76,8 @@ and match using given variable (Maybe Id or name).</em>
   * Will need to read through Stream and LocalDate functions.
   * Host and Location are one Entity (One Class).
 Housing a host field inside location class or Vice-versa.
+    
+
+# Actual Time Spent
+* 
 
