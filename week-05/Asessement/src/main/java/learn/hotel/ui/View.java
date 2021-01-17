@@ -178,8 +178,8 @@ public class View {
             return;
         }
         for (Reservation reservation : reservations) {
-            io.printf("Reservation ID: %d, From %s to %s, Guest ID : %d, %.2f%n",
-                    reservation.getGuestId(), reservation.getStartDate(), reservation.getEndDate(),
+            io.printf("Reservation ID: %d, From %s to %s, Guest ID : %d, Total: $%.2f%n",
+                    reservation.getReservationId(), reservation.getStartDate(), reservation.getEndDate(),
                     reservation.getGuestId(), reservation.getTotalPrice());
         }
     }

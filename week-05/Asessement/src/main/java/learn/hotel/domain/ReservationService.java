@@ -10,6 +10,7 @@ import java.math.RoundingMode;
 import java.security.cert.CertSelector;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,7 +35,11 @@ public class ReservationService {
         Map<String, Host> hostMap = hostFileRepository.findAll().stream()
                 .collect(Collectors.toMap(h -> h.getId(), h -> h));
 
-        List<Reservation> result = reservationFileRepository.findById(id);
+        List<Reservation> result = reservationFileRepository.findById(id).stream()
+                .filter(r -> r.getStartDate().isAfter(LocalDate.now()))
+                .filter(r -> r.getEndDate().isAfter(LocalDate.now()))
+                .sorted(Comparator.comparing(r -> r.getStartDate()))
+                .collect(Collectors.toList());
 
         for (Reservation reservation : result) {
             reservation.setGuest(guestMap.get(reservation.getGuestId()));
