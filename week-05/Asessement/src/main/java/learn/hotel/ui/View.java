@@ -64,7 +64,7 @@ public class View {
         index--;
 
         io.println("0: Exit");
-        String message = String.format("Select a Host by their index [0-%s]", index);
+        String message = String.format("Select a Host by their index [0-%s]: ", index);
 
         index = io.readInt(message, 0, index);
         if (index <= 0) {
@@ -87,7 +87,7 @@ public class View {
         index--;
 
         io.println("0: Exit");
-        String message = String.format("Select a Guest by their index [0-%s]", index);
+        String message = String.format("Select a Guest by their index [0-%s]: ", index);
 
         index = io.readInt(message, 0, index);
         if (index <= 0) {
@@ -115,7 +115,7 @@ public class View {
         index--;
 
         io.println("0: Exit");
-        String message = String.format("Select a reservation by their index [0-%s]", index);
+        String message = String.format("Select a reservation by their index [0-%s]: ", index);
 
         index = io.readInt(message, 0, index);
         if (index <= 0) {
@@ -140,8 +140,8 @@ public class View {
         while(true) {
             Reservation reservationUpdated = reservation;
             displayHeader("Updating the reservation");
-            LocalDate updateStartDate = io.readLocalDateUpdate("Start Date" + reservation.getStartDate().toString());
-            LocalDate updateEndDate = io.readLocalDateUpdate("End Date" + reservation.getEndDate().toString());
+            LocalDate updateStartDate = io.readLocalDateUpdate("Start Date: " + reservation.getStartDate().toString());
+            LocalDate updateEndDate = io.readLocalDateUpdate("End Date: " + reservation.getEndDate().toString());
             if(updateStartDate != null) {
                 reservationUpdated.setStartDate(updateStartDate);
             }
@@ -150,7 +150,7 @@ public class View {
             }
             io.printf("New reservation : %s to %s for $%s", reservation.getStartDate(),
                     reservation.getEndDate(),reservation.getValue());
-            String confirm = io.readRequiredString("Update reservation? [Y/N]");
+            String confirm = io.readRequiredString("Update reservation? [Y/N]: ");
             if(confirm.equalsIgnoreCase("Y")) {
                 return reservationUpdated;
             }
@@ -178,7 +178,7 @@ public class View {
             return;
         }
         for (Reservation reservation : reservations) {
-            io.printf("Reservation ID:%d, From %s to %s, Guest ID : %d, %.2f%n",
+            io.printf("Reservation ID: %d, From %s to %s, Guest ID : %d, %.2f%n",
                     reservation.getGuestId(), reservation.getStartDate(), reservation.getEndDate(),
                     reservation.getGuestId(), reservation.getTotalPrice());
         }
