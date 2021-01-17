@@ -31,7 +31,7 @@ public class View {
             max = Math.max(max, option.getValue());
         }
 
-        String message = String.format("Select [%s-%s]: ", min, max - 1);
+        String message = String.format("Select [%s-%s]: ", min, max);
         return MainMenuOption.fromValue(io.readInt(message, min, max));
     }
 
@@ -97,7 +97,7 @@ public class View {
     }
 
     public Reservation chooseReservation(List<Reservation> reservations, List<Guest> guests) {
-        displayHeader("Select a reservation you want to update");
+        displayHeader("Select a reservation");
         Map<Integer, Guest> mapGuest = guests.stream()
                 .collect(Collectors.toMap(g -> g.getGuestId(), g -> g));
 
@@ -138,19 +138,24 @@ public class View {
 
     public Reservation updateReservation(Reservation reservation) {
         while(true) {
+            Reservation reservationUpdated = reservation;
             displayHeader("Updating the reservation");
             LocalDate updateStartDate = io.readLocalDateUpdate("Start Date" + reservation.getStartDate().toString());
             LocalDate updateEndDate = io.readLocalDateUpdate("End Date" + reservation.getEndDate().toString());
-            String confirm = io.readString("Update Date?[Y/N]");
-            if(confirm.charAt(0) == 'Y') {
-                if(updateStartDate != null) {
-                    reservation.setStartDate(updateStartDate);
-                }
-                if(updateEndDate != null) {
-                    reservation.setEndDate(updateEndDate);
-                }
-                return reservation;
+            if(updateStartDate != null) {
+                reservationUpdated.setStartDate(updateStartDate);
             }
+            if(updateEndDate != null) {
+                reservationUpdated.setEndDate(updateEndDate);
+            }
+            io.printf("New reservation : %s to %s for $%s", reservation.getStartDate(),
+                    reservation.getEndDate(),reservation.getValue());
+            String confirm = io.readRequiredString("Update reservation? [Y/N]");
+            if(confirm.equalsIgnoreCase("Y")) {
+                return reservationUpdated;
+            }
+            return reservation;
+
         }
     }
 

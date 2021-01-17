@@ -43,9 +43,6 @@ public class ReservationService {
             reservation.setGuest(guestMap.get(reservation.getGuestId()));
             reservation.setHost(hostMap.get(reservation.getHostId()));
         }
-
-
-
         return result;
 
     }
@@ -127,30 +124,31 @@ public class ReservationService {
         List<Reservation> reservations = findById(reservation.getHostId());
         reservations.stream()
                 .forEach(r -> {
-                    if ((reservation.getStartDate().isEqual(r.getStartDate()) ||
-                            reservation.getStartDate().isAfter(r.getStartDate())) &&
-                            (reservation.getStartDate().isBefore(r.getEndDate()))) {
-                        result.addErrorMessage("This start date is unavailable");
-                    }
-                    if ((reservation.getEndDate().isAfter(r.getStartDate())) &&
-                            (reservation.getEndDate().isBefore(r.getEndDate()) ||
-                                    reservation.getEndDate().isEqual(r.getEndDate()))
-                    ) {
-                        result.addErrorMessage("This EndDate overlaps with some dates");
-                    }
+                    if (reservation.getReservationId() != r.getReservationId()) {
+                        if ((reservation.getStartDate().isEqual(r.getStartDate()) ||
+                                reservation.getStartDate().isAfter(r.getStartDate())) &&
+                                (reservation.getStartDate().isBefore(r.getEndDate()))) {
+                            result.addErrorMessage("This start date is unavailable");
+                        }
+                        if ((reservation.getEndDate().isAfter(r.getStartDate())) &&
+                                (reservation.getEndDate().isBefore(r.getEndDate()) ||
+                                        reservation.getEndDate().isEqual(r.getEndDate()))
+                        ) {
+                            result.addErrorMessage("This EndDate overlaps with some dates");
+                        }
 
-                });
+                    }});
 
-        if (reservation.getEndDate().isBefore(reservation.getStartDate())) {
-            result.addErrorMessage("End Date cannot be before start date.");
-        }
-        if (reservation.getStartDate().isEqual(reservation.getEndDate())) {
-            result.addErrorMessage("Check in can't be the same day as checkout");
-        }
-        if ((reservation.getStartDate().isBefore(LocalDate.now())) ||
-                reservation.getEndDate().isBefore(LocalDate.now())) {
-            result.addErrorMessage("Reservation Date cannot be in the past");
-        }
+            if (reservation.getEndDate().isBefore(reservation.getStartDate())) {
+                result.addErrorMessage("End Date cannot be before start date.");
+            }
+            if (reservation.getStartDate().isEqual(reservation.getEndDate())) {
+                result.addErrorMessage("Check in can't be the same day as checkout");
+            }
+            if ((reservation.getStartDate().isBefore(LocalDate.now())) ||
+                    reservation.getEndDate().isBefore(LocalDate.now())) {
+                result.addErrorMessage("Reservation Date cannot be in the past");
+            }
 
     }
 }

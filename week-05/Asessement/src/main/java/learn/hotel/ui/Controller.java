@@ -27,7 +27,7 @@ public class Controller {
     }
 
     public void run() {
-        view.displayHeader("Welcome to Sustainable Foraging");
+        view.displayHeader("Welcome to Rent WINDBNB");
         try {
             runAppLoop();
         } catch (DataException ex) {
@@ -51,7 +51,7 @@ public class Controller {
                     updateReservation();
                     break;
                 case CANCEL_RESERVATION:
-                    //addForager();
+                    cancelReservation();
                     break;
             }
 
@@ -62,6 +62,7 @@ public class Controller {
         Host host = getHost();
         List<Reservation> reservations = reservationService.findById(host.getId());
         view.displayReservations(reservations);
+        view.pressEnter();
     }
 
     private Host getHost() {
@@ -79,6 +80,7 @@ public class Controller {
     }
 
     private void updateReservation() throws DataException{
+
         view.displayHeader(MainMenuOption.EDIT_RESERVATION.getMessage());
         Host host = getHost();
         if(host != null) {
@@ -114,6 +116,9 @@ public class Controller {
             try {
                 if(view.cancelReservation(reservation)) {
                     reservationService.deleteReservation(reservation);
+                    view.displayStatus(true, "Reservation has been cancelled");
+                } else if(reservation == null) {
+                    view.displayStatus(false, "No reservation to cancel");
                 }
             }
             catch (NullPointerException e) {
