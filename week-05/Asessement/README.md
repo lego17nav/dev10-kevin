@@ -79,5 +79,59 @@ Housing a host field inside location class or Vice-versa.
     
 
 # Actual Time Spent
-* 
+* Data
+  * Guest - 1/2 hour
+  * Reservation - 1/2 hour
+  * Host - 1/2 hour
 
+* Repository
+  * Guest - Tuesday (2 hours)
+    * FindByLastName (2 hours)
+  * Host - Tuesday - Wednesday (4 hours)
+    * Findall - 1/2 hour
+    * findById - 1/2 hour
+    * add - 1/2 hour
+  * Reservation - Wednesday,Thursday,Friday (12 hours)
+    * FindById - 1 hour
+    * Add - 8 hours
+    * update - 1/2 hour
+    * delete - 1/2 hour
+    * getFilePath - 1/2 hour
+    * toSring & toObject & writeall- 1 hour
+  
+* Domain
+  * Guest - Thursday (1 hour)
+    * FindByLastName (1/2 hour)
+    * FindAll (1/2 hour)
+  * Host - Thursday (1 hour)
+    * Findall
+    * FindById
+    * FindbyLastName
+  * Reservation (4 hours)
+    * FindByID (1 hour)
+    * Update (1/2 hour)
+    * delete (1/2 hour)
+    * Validate (1 hour)
+    * ValidateNulls (1/4 hour)
+    * ValidateDates (1 hour)
+  
+* UI
+  * Controller - All week (on and off 12 hours)
+    * run (1/2 hour)
+    * runAppLoop (1/2 hour)
+    * ViewByHost (1 - 2 hours)
+    * getHost (1/2 hour)
+    * getGuest (1/2 hour)
+    * updateReservation (2 hours)
+    * cancelReservation (1 hour) 
+    * addReservation (2 hours)
+  * View - All week (4 hours)
+  
+* Spring Configuration (1 hour Sunday)
+* Testing
+  * Tuesday (1 hour)
+  * Wednesday (1 hour)
+  * Sunday (4 hours)
+  
+* Fleshing  out Display and Texts
+  * Sunday (1 hour)
