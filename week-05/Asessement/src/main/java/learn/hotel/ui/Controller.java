@@ -152,5 +152,5 @@ public class Controller {
         } catch(NullPointerException ex) {
             view.displayStatus(false, "Error in Making reservation");
         }
+        }
     }
-}

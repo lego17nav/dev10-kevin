@@ -203,7 +203,10 @@ public class View {
         reservation.setGuestId(guest.getGuestId());
         reservation.setStartDate(io.readLocalDate("Reservation Start Date [yyyy-MM-dd]:"));
         reservation.setEndDate(io.readLocalDate("Reservation End Date [yyyy-MM-dd]:"));
-        return reservation;
+        io.println("Make the following Reservation? [Y/N]");
+        String confirmation = io.readRequiredString("From: " + reservation.getStartDate()
+        + " To: " + reservation.getEndDate() + " $" + reservation.getValue() + "\n");
+        return confirmation.equalsIgnoreCase("y") ? reservation : null;
     }
 
     public String getHostLastName() {

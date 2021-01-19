@@ -1,5 +1,6 @@
 package learn.hotel.data;
 
+import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
@@ -8,24 +9,28 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.zip.GZIPInputStream;
 
 public class ReservationRepositoryDouble implements ReservationRepository{
 
-    final String hostId = "Test1";
+    //final String hostId = "Test1";
 
     private final ArrayList<Reservation> reservations = new ArrayList<>();
 
     public ReservationRepositoryDouble() {
+        Guest guest = new Guest();
         Host host = new Host();
-        host.setLastName("Jin");
-        host.setId(hostId);
         host.setRegRate(new BigDecimal(100));
         host.setWeekERate(new BigDecimal(150));
+        host.setLastName("George");
+        host.setId("Test-abc");
         Reservation reservation = new Reservation();
-        reservation.setStartDate(LocalDate.of(2022,01,01));
-        reservation.setStartDate(LocalDate.of(2022,02,01));
+        reservation.setHostId(host.getId());
+        reservation.setReservationId(1);
         reservation.setHost(host);
-        reservation.setHostId(hostId);
+        reservation.setGuest(guest);
+        reservation.setStartDate(LocalDate.of(2022,01,01));
+        reservation.setEndDate(LocalDate.of(2022,01,05));
         reservations.add(reservation);
     }
 
@@ -41,7 +46,7 @@ public class ReservationRepositoryDouble implements ReservationRepository{
 
     @Override
     public Reservation add(Reservation reservation) throws DataException {
-        List<Reservation> all = findAll();
+        List<Reservation> all = findById(reservation.getHostId());
 
         int nextId = all.stream()
                 .mapToInt(Reservation::getReservationId)

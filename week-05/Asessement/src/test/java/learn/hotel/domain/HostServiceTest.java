@@ -5,6 +5,8 @@ import learn.hotel.data.HostRepositoryDouble;
 import learn.hotel.models.Host;
 import org.junit.jupiter.api.Test;
 
+import java.util.jar.JarEntry;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HostServiceTest {
@@ -21,13 +23,22 @@ public class HostServiceTest {
 
     @Test
     void shouldFindDoe() throws DataException {
-        assertEquals("Doe", service.findByLastName("D").get(0).getLastName());
+        assertEquals("George", service.findByLastName("G").get(0).getLastName());
     }
 
     @Test
     void shouldFindTestId() throws DataException {
-        assertNotNull(service.findByHostId("abcdef"));
+        assertNotNull(service.findByHostId("Test-abc"));
     }
 
+    @Test
+    void shouldNotFindNoneExistingHostId() throws DataException {
+        assertEquals(0,service.findByHostId("None").size());
+    }
+
+    @Test
+    void shouldFindNotFindPrefix() throws DataException {
+        assertEquals(0, service.findByLastName("F").size());
+    }
 
 }

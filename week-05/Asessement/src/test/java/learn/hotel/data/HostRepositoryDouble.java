@@ -43,10 +43,10 @@ public class HostRepositoryDouble implements HostRepository {
 
     private static Host makeHost() {
         Host host = new Host();
-        host.setLastName("Doe");
-        host.setId("abcdefg");
-        host.setWeekERate(new BigDecimal(100));
-        host.setRegRate(new BigDecimal(200));
+        host.setRegRate(new BigDecimal(100));
+        host.setWeekERate(new BigDecimal(150));
+        host.setLastName("George");
+        host.setId("Test-abc");
         return host;
     }
 

@@ -26,10 +26,10 @@ class ReservationServiceTest {
 
     @BeforeEach
     void updateHost() {
-        host.setLastName("Jin");
         host.setRegRate(new BigDecimal(100));
         host.setWeekERate(new BigDecimal(150));
-        host.setId("abcdefg");
+        host.setLastName("George");
+        host.setId("Test-abc");
     }
     @BeforeEach
     void updateGuest() {
@@ -84,19 +84,44 @@ class ReservationServiceTest {
         Result<Reservation> result = service.add(reservation);
         assertFalse(result.isSuccess());
     }
+    @Test
+    void shouldNotAddDateBeforeToday() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(host);
+        reservation.setGuest(guest);
+        reservation.setHostId(host.getId());
+        reservation.setStartDate(LocalDate.of(2020,01,01));
+        reservation.setEndDate(LocalDate.of(2022,01,30));
+        reservation.setReservationId(2);
+        Result<Reservation> result = service.add(reservation);
+        assertFalse(result.isSuccess());
+    }
 
     @Test
     void shouldNotAddUnavailableStartDates() throws DataException {
         Reservation reservation = new Reservation();
         reservation.setHost(host);
         reservation.setGuest(guest);
+        reservation.setHostId(host.getId());
         reservation.setStartDate(LocalDate.of(2022,01,01));
-        reservation.setEndDate(LocalDate.of(2025,01,10));
-        System.out.println(service.f);
+        reservation.setEndDate(LocalDate.of(2022,01,30));
+        reservation.setReservationId(2);
         Result<Reservation> result = service.add(reservation);
         assertFalse(result.isSuccess());
     }
 
+    @Test
+    void shouldNotAddUnavailableEndDates() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(host);
+        reservation.setGuest(guest);
+        reservation.setHostId(host.getId());
+        reservation.setStartDate(LocalDate.of(2020, 05, 01));
+        reservation.setEndDate(LocalDate.of(2021, 01, 30));
+        reservation.setReservationId(2);
+        Result<Reservation> result = service.add(reservation);
+        assertFalse(result.isSuccess());
+    }
     @Test
     void shouldNotAddEndDateBeforeStartDate() throws DataException {
         Reservation reservation = new Reservation();
@@ -112,18 +137,25 @@ class ReservationServiceTest {
     @Test
     void shouldDelete() throws DataException {
         Reservation reservation = new Reservation();
-        reservation.setHostId("abcdef12345");
+        reservation.setHostId("Test-abc");
         reservation.setReservationId(1);
-        service.deleteReservation(reservation);
-
-        assertEquals(0,service.findById("reservation-testId").size());
+        Result<Reservation> result = service.deleteReservation(reservation);
+        assertTrue(result.isSuccess());
+    }
+    @Test
+    void shouldNotDeleteNonExistingReservation() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHostId("Test-none");
+        reservation.setReservationId(2);
+        Result<Reservation> result = service.deleteReservation(reservation);
+        assertFalse(result.isSuccess());
     }
 
     @Test
     void shouldUpdate() throws  DataException {
         Reservation reservation = new Reservation();
         reservation.setReservationId(1);
-        reservation.setHostId("abcdef12345");
+        reservation.setHostId("Test-abc");
         reservation.setHost(host);
         reservation.setGuest(new Guest());
         reservation.setStartDate(LocalDate.of(2026,01,01));
@@ -131,5 +163,68 @@ class ReservationServiceTest {
         Result<Reservation> results = service.update(reservation);
         assertTrue(results.isSuccess());
     }
+
+    @Test
+    void ShouldNotUpdateEndDateBeforeStartDate() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHostId("Test-abc");
+        reservation.setHost(host);
+        reservation.setStartDate(LocalDate.of(2026,01,01));
+        reservation.setEndDate(LocalDate.of(2025,01,10));
+
+        Result<Reservation> result = service.update(reservation);
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void ShouldNotUpdateDateBeforeToday() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(host);
+        reservation.setGuest(guest);
+        reservation.setHostId(host.getId());
+        reservation.setStartDate(LocalDate.of(2020, 01, 01));
+        reservation.setEndDate(LocalDate.of(2023, 01, 30));
+        reservation.setReservationId(1);
+        Result<Reservation> result = service.update(reservation);
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void ShouldNotUpdateNoneMatchingReservation () throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(host);
+        reservation.setGuest(guest);
+        reservation.setHostId(host.getId());
+        reservation.setStartDate(LocalDate.of(2020, 01, 01));
+        reservation.setEndDate(LocalDate.of(2023, 01, 30));
+        reservation.setReservationId(2);
+        Result<Reservation> result = service.update(reservation);
+        assertFalse(result.isSuccess());
+    }
+    @Test
+    void ShouldNotDeleteNullHost() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(null);
+        reservation.setGuest(guest);
+        reservation.setHostId(host.getId());
+        reservation.setStartDate(LocalDate.of(2023, 01, 01));
+        reservation.setEndDate(LocalDate.of(2023, 01, 30));
+        reservation.setReservationId(2);
+        Result<Reservation> result = service.deleteReservation(reservation);
+        assertFalse(result.isSuccess());
+    }
+    @Test
+    void ShouldNotDeleteNullGuest() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(host);
+        reservation.setGuest(null);
+        reservation.setHostId(host.getId());
+        reservation.setStartDate(LocalDate.of(2023, 01, 01));
+        reservation.setEndDate(LocalDate.of(2023, 01, 30));
+        reservation.setReservationId(2);
+        Result<Reservation> result = service.deleteReservation(reservation);
+        assertFalse(result.isSuccess());
+    }
+
 
 }
