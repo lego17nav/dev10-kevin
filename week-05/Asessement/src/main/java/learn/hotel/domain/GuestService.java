@@ -15,7 +15,7 @@ public class GuestService {
 
     public List<Guest> findByLastName(String prefix) {
         return repository.findAll().stream()
-                .filter(g -> g.getLastName().startsWith(prefix))
+                .filter(g -> g.getLastName().toUpperCase().startsWith(prefix.toUpperCase()))
                 .sorted((g1,g2) -> g1.getLastName().compareTo(g2.getLastName()))
                 .collect(Collectors.toList());
     }

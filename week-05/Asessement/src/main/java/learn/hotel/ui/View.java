@@ -140,15 +140,15 @@ public class View {
         while(true) {
             Reservation reservationUpdated = reservation;
             displayHeader("Updating the reservation");
-            LocalDate updateStartDate = io.readLocalDateUpdate("Start Date: " + reservation.getStartDate().toString());
-            LocalDate updateEndDate = io.readLocalDateUpdate("End Date: " + reservation.getEndDate().toString());
+            LocalDate updateStartDate = io.readLocalDateUpdate("Start Date: " + reservation.getStartDate().toString() + ":");
+            LocalDate updateEndDate = io.readLocalDateUpdate("End Date: " + reservation.getEndDate().toString() + ":");
             if(updateStartDate != null) {
                 reservationUpdated.setStartDate(updateStartDate);
             }
             if(updateEndDate != null) {
                 reservationUpdated.setEndDate(updateEndDate);
             }
-            io.printf("New reservation : %s to %s for $%s", reservation.getStartDate(),
+            io.printf("New reservation : %s to %s for $%s ", reservation.getStartDate(),
                     reservation.getEndDate(),reservation.getValue());
             String confirm = io.readRequiredString("Update reservation? [Y/N]: ");
             if(confirm.equalsIgnoreCase("Y")) {

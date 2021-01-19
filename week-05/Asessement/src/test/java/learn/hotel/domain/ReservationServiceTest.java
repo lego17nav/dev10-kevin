@@ -29,17 +29,17 @@ class ReservationServiceTest {
         host.setLastName("Jin");
         host.setRegRate(new BigDecimal(100));
         host.setWeekERate(new BigDecimal(150));
-        host.setId("abcdef12345");
+        host.setId("abcdefg");
     }
     @BeforeEach
     void updateGuest() {
         guest.setGuestId(2);
         guest.setLastName("Doe");
     }
+
     @Test
     void shouldAdd() throws DataException {
         Reservation reservation = new Reservation();
-        reservation.setHostId("abcdef12345");
         reservation.setHost(host);
         reservation.setGuest(guest);
         reservation.setStartDate(LocalDate.of(2024,01,01));
@@ -52,8 +52,19 @@ class ReservationServiceTest {
     @Test
     void shouldNotAddNullGuest() throws DataException {
         Reservation reservation = new Reservation();
-        reservation.setHostId("abcdef12345");
         reservation.setHost(host);
+        reservation.setStartDate(LocalDate.of(2024,01,01));
+        reservation.setEndDate(LocalDate.of(2025,01,10));
+
+        Result<Reservation> result = service.add(reservation);
+        assertFalse(result.isSuccess());
+    }
+    @Test
+    void shouldNotAddNullHost() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHostId("abcdef12345");
+        reservation.setHost(null);
+        reservation.setGuest(guest);
         reservation.setStartDate(LocalDate.of(2024,01,01));
         reservation.setEndDate(LocalDate.of(2025,01,10));
 
@@ -66,6 +77,7 @@ class ReservationServiceTest {
         Reservation reservation = new Reservation();
         reservation.setHostId("abcdef12345");
         reservation.setHost(host);
+        reservation.setGuest(guest);
         reservation.setStartDate(null);
         reservation.setEndDate(LocalDate.of(2025,01,10));
 
@@ -74,9 +86,21 @@ class ReservationServiceTest {
     }
 
     @Test
+    void shouldNotAddUnavailableStartDates() throws DataException {
+        Reservation reservation = new Reservation();
+        reservation.setHost(host);
+        reservation.setGuest(guest);
+        reservation.setStartDate(LocalDate.of(2022,01,01));
+        reservation.setEndDate(LocalDate.of(2025,01,10));
+        System.out.println(service.f);
+        Result<Reservation> result = service.add(reservation);
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
     void shouldNotAddEndDateBeforeStartDate() throws DataException {
         Reservation reservation = new Reservation();
-        reservation.setHostId("abcdef12345");
+        reservation.setHostId("abcd1234");
         reservation.setHost(host);
         reservation.setStartDate(LocalDate.of(2026,01,01));
         reservation.setEndDate(LocalDate.of(2025,01,10));

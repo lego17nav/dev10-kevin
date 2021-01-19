@@ -6,6 +6,7 @@ import learn.hotel.models.Host;
 import learn.hotel.ui.Controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class HostService {
@@ -22,7 +23,7 @@ public class HostService {
 
     public List<Host> findByLastName(String prefix) {
         return findAll().stream()
-                .filter(h -> h.getLastName().startsWith(prefix))
+                .filter(h -> h.getLastName().toUpperCase().startsWith(prefix.toUpperCase()))
                 .sorted((h1,h2) -> h1.getLastName().compareTo(h2.getLastName()))
                 .collect(Collectors.toList());
     }

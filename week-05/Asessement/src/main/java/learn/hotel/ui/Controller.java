@@ -114,11 +114,15 @@ public class Controller {
             Reservation reservation = view.chooseReservation(reservations, guests);
             view.pressEnter();
             try {
+                if(reservations.size() == 0) {
+                    view.displayStatus(true, "No reservation to Cancel");
+                    return;
+                }
                 if(view.cancelReservation(reservation)) {
                     reservationService.deleteReservation(reservation);
                     view.displayStatus(true, "Reservation has been cancelled");
-                } else if(reservation == null) {
-                    view.displayStatus(false, "No reservation to cancel");
+                } else {
+                    return;
                 }
             }
             catch (NullPointerException e) {

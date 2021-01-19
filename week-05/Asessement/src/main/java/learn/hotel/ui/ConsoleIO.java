@@ -52,7 +52,7 @@ public class ConsoleIO {
 
     public LocalDate readLocalDateUpdate(String prompt) {
         while (true) {
-            String input = readRequiredString(prompt);
+            String input = readString(prompt);
             if(input.isBlank() || input == null) {
                 return null;
             }
