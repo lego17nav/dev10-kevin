@@ -4,6 +4,7 @@ import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -85,5 +86,10 @@ public class ReservationRepositoryDouble implements ReservationRepository{
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Reservation> readAllFiles(int guestID) throws DataException, IOException {
+        return null;
     }
 }

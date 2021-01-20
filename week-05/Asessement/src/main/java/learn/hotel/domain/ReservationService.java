@@ -5,6 +5,7 @@ import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.cert.CertSelector;
@@ -47,6 +48,25 @@ public class ReservationService {
         }
         return result;
 
+    }
+
+    public List<Reservation> findByGuestID(int guestID) throws DataException, IOException {
+        Map<Integer, Guest> guestMap = guestFileRepository.findAll().stream()
+                .collect(Collectors.toMap(g -> g.getGuestId(), g -> g));
+        Map<String, Host> hostMap = hostFileRepository.findAll().stream()
+                .collect(Collectors.toMap(h -> h.getId(), h -> h));
+
+        List<Reservation> result = reservationFileRepository.readAllFiles(guestID).stream()
+                .filter(r -> r.getStartDate().isAfter(LocalDate.now()))
+                .filter(r -> r.getEndDate().isAfter(LocalDate.now()))
+                .sorted(Comparator.comparing(r -> r.getStartDate()))
+                .collect(Collectors.toList());
+
+        for (Reservation reservation : result) {
+            reservation.setGuest(guestMap.get(reservation.getGuestId()));
+            reservation.setHost(hostMap.get(reservation.getHostId()));
+        }
+        return result;
     }
 
     public Result<Reservation> add(Reservation reservation) throws DataException {

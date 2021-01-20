@@ -7,7 +7,8 @@ public enum MainMenuOption {
     VIEW_RESERVATION_BY_HOST(1, "View Reservation by Host", false),
     MAKE_RESERVATION(2, "Make a Reservation", false),
     EDIT_RESERVATION(3, "Edit a Reservation", false),
-    CANCEL_RESERVATION(4, "Cancel a Reservation", false);
+    CANCEL_RESERVATION(4, "Cancel a Reservation", false),
+    VIEW_RESERVATION_BY_GUEST(5, "View Reservation by Guest", false),;
 
 
     private int value;

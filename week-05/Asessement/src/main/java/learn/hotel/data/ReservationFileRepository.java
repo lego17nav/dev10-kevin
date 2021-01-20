@@ -3,16 +3,17 @@ package learn.hotel.data;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ReservationFileRepository implements ReservationRepository{
 
@@ -43,6 +44,27 @@ public class ReservationFileRepository implements ReservationRepository{
 
         }
         return result;
+    }
+
+    @Override
+    public List<Reservation> readAllFiles(int guestId) throws DataException, IOException {
+        List<Reservation> results = new ArrayList<>();
+        File directoryPath = new File(directory);
+        File pathData[] = directoryPath.listFiles();
+
+            for(File file : pathData) {
+                BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(file)));
+                String filePathTest = String.valueOf(file).split("\\\\")[3];
+                String hostId = filePathTest.replace(".csv", "");
+                reader.readLine();
+                for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+                    String[] fields = line.split(",");
+                    if(fields.length == 5 && Integer.parseInt(fields[3]) == guestId) {
+                        results.add(toObject(fields, hostId));
+                    }
+                }
+            }
+        return results;
     }
 
     @Override

@@ -43,6 +43,12 @@ class ReservationFileRepositoryTest {
     }
 
     @Test
+    void shouldReadAllFiles() throws IOException, DataException {
+        List<Reservation> results = reservationFileRepository.readAllFiles(841);
+        assertNotNull(results);
+    }
+
+    @Test
     void shouldAdd() throws DataException {
         reservationTest.setReservationId(1);
         reservationTest.setHostId("reservation-testId");

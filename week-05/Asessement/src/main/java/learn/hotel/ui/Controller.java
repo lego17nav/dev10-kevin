@@ -9,6 +9,7 @@ import learn.hotel.models.Guest;
 import learn.hotel.models.Host;
 import learn.hotel.models.Reservation;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Controller {
@@ -30,13 +31,13 @@ public class Controller {
         view.displayHeader("Welcome to Rent WINDBNB");
         try {
             runAppLoop();
-        } catch (DataException ex) {
+        } catch (DataException | IOException ex) {
             view.displayException(ex);
         }
         view.displayHeader("Goodbye.");
     }
 
-    private void runAppLoop() throws DataException {
+    private void runAppLoop() throws DataException, IOException {
         MainMenuOption option;
         do {
             option = view.selectMainMenuOption();
@@ -53,6 +54,9 @@ public class Controller {
                 case CANCEL_RESERVATION:
                     cancelReservation();
                     break;
+                case VIEW_RESERVATION_BY_GUEST:
+                    viewByGuest();
+                    break;
             }
 
         } while (option != MainMenuOption.EXIT);
@@ -61,6 +65,13 @@ public class Controller {
     private void viewByHost() {
         Host host = getHost();
         List<Reservation> reservations = reservationService.findById(host.getId());
+        view.displayReservations(reservations);
+        view.pressEnter();
+    }
+
+    private void viewByGuest() throws IOException, DataException {
+        Guest guest = getGuest();
+        List<Reservation> reservations = reservationService.findByGuestID(guest.getGuestId());
         view.displayReservations(reservations);
         view.pressEnter();
     }
