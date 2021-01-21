@@ -37,15 +37,9 @@ class ReservationFileRepositoryTest {
     }
 
     @Test
-    void shouldFindId() {
+    void shouldFindId() throws IOException{
         List<Reservation> reservations = reservationFileRepository.findById("reservation-testId");
         assertEquals(13,reservations.size());
-    }
-
-    @Test
-    void shouldReadAllFiles() throws IOException, DataException {
-        List<Reservation> results = reservationFileRepository.readAllFiles(841);
-        assertNotNull(results);
     }
 
     @Test
@@ -78,4 +72,5 @@ class ReservationFileRepositoryTest {
         reservationTest.setHost(testHost);
         assertTrue(reservationFileRepository.delete(reservationTest));
     }
+
 }

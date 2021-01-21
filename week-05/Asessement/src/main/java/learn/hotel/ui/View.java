@@ -177,6 +177,7 @@ public class View {
             io.println("No Reservations found.");
             return;
         }
+
         for (Reservation reservation : reservations) {
             io.printf("Name: %s, Reservation ID: %d, From %s to %s, Guest ID : %d, Total: $%.2f%n",
                     reservation.getGuest().getLastName(),
