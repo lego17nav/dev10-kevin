@@ -13,6 +13,8 @@ create table customer (
     customer_phone varchar(15) null,
     address varchar(50) null
 );
+alter table customer
+	modify email varchar(50) not null;
 
 drop table if exists theater;
 create table theater (
