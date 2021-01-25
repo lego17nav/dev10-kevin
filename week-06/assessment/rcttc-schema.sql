@@ -1,6 +1,6 @@
--- drop database if exists tinytheater;
--- create database tinytheater;
--- use tinytheater;
+drop database if exists tinytheater;
+create database tinytheater;
+use tinytheater;
 
 -- select count(*) from tinytheater.rcttc;
 
@@ -31,6 +31,13 @@ create table shows (
     constraint fk_shows_theater_id
 		foreign key (theater_id)
         references theater(theater_id)
+);
+
+drop table if exists show_times;
+create table show_times (
+	show_date date not null,
+    showtime_id int primary key auto_increment
+      
 );
 
 drop table if exists times_show;

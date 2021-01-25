@@ -45,7 +45,7 @@ group by lastname;
 select distinct * from ticket
 inner join seats on ticket.seat_id = seats.seat_id
 inner join theater on theater.theater_id = seats.theater_id
-inner join shows on theater.theater_id = shows.theater_id and seat_id.theater_id = shows.theater_id;
+inner join shows on theater.theater_id = shows.theater_id and seats.theater_id = shows.theater_id;
 
 
 select theater.theater_name, sum(ticket.ticket_price) from theater
