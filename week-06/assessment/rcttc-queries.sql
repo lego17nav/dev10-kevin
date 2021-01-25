@@ -42,9 +42,9 @@ inner join times_show on show_times.showtime_id = times_show.showtime_id
 inner join shows on times_show.showid = shows.showid and theater.theater_id = shows.theater_id
 order by customer.customerid;
 
-select customer.lastname, count(*) from customer
+select customer.firstname, customer.lastname, count(*) from customer
 inner join ticket on customer.customerid = ticket.customerid
-group by lastname;
+group by customer.firstname, customer.lastname;
 
 select distinct shows.show_name, sum(ticket.ticket_price) from ticket
 inner join seats on ticket.seat_id = seats.seat_id
@@ -61,9 +61,9 @@ inner join seats on theater.theater_id = seats.theater_id
 inner join ticket on seats.seat_id = ticket.seat_id
 group by theater.theater_name;
 
-select customer.lastname , sum(ticket.ticket_price) from customer
+select customer.firstname, customer.lastname , sum(ticket.ticket_price) from customer
 inner join ticket on customer.customerid = ticket.customerid
-group by customer.lastname
+group by customer.firstname, customer.lastname
 order by sum(ticket.ticket_price) desc
 limit 1;
 
