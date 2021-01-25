@@ -30,9 +30,6 @@ inner join shows on theater.theater_id = shows.showid
 order by firstname, lastname;
 
 
-select * from times_show;
---
-
 select * from customer
 where address = "";
 
