@@ -61,6 +61,8 @@ inner join seats on theater.theater_id = seats.theater_id
 inner join ticket on seats.seat_id = ticket.seat_id
 group by theater.theater_name;
 
+
+
 select customer.firstname, customer.lastname , sum(ticket.ticket_price) from customer
 inner join ticket on customer.customerid = ticket.customerid
 group by customer.firstname, customer.lastname
