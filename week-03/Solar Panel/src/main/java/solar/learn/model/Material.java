@@ -17,6 +17,15 @@ public enum Material {
     public String getStringValue() {
         return stringValue;
     }
+
+    public static Material fromString(String text) {
+        for(Material material : Material.values()) {
+            if(material.toString().equalsIgnoreCase(text)) {
+                return material;
+            }
+        }
+        return null;
+    }
 }
 
 
