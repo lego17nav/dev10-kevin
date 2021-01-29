@@ -1,4 +1,6 @@
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import solar.learn.repository.SolarFileRepository;
 import solar.learn.domain.SolarPanelService;
@@ -7,6 +9,7 @@ import solar.learn.ui.View;
 
 import org.springframework.context.ApplicationContext;
 
+@SpringBootApplication
 public class App {
 
     public static void main(String[] args) {
@@ -17,11 +20,7 @@ public class App {
         Controller controller = new Controller(new View(), service);
         controller.run();*/
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("dependency-configuration.xml");
-
-        Controller controller = context.getBean(Controller.class);
-
-        controller.run();
+        SpringApplication.run(App.class, args);
 
     }
 }
