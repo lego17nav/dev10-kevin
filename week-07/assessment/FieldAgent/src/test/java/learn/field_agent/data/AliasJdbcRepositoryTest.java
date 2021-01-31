@@ -29,6 +29,13 @@ class AliasJdbcRepositoryTest {
     }
 
     @Test
+    void shouldFindAll() {
+        Alias alias = createAlias();
+        repository.add(alias);
+        assertTrue(repository.findAll().size() > 0);
+    }
+
+    @Test
     void shouldDelete() {
         Alias alias = createAlias();
         assertTrue(repository.delete(1));

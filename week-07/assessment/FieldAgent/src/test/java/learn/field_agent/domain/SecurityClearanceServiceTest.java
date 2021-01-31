@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -52,8 +54,12 @@ class SecurityClearanceServiceTest {
 
     @Test
     void shouldNotAddIfDuplicate() {
+        when(service.findAll()).thenReturn(List.of(
+                new SecurityClearance(1,"Secret")
+        ));
+
         SecurityClearance sc = makeSecurityClearance();
-        when(repository.add(sc)).;
+        sc.setName("Secret");
         Result<SecurityClearance> result = service.add(sc);
         assertEquals(ResultType.INVALID,result.getType());
     }
@@ -87,8 +93,11 @@ class SecurityClearanceServiceTest {
 
     @Test
     void shouldNotUpdateDuplicateName() {
+        when(service.findAll()).thenReturn(List.of(
+                new SecurityClearance(1,"Secret")
+        ));
         SecurityClearance sc = makeSecurityClearance();
-        sc.setSecurityClearanceId(1);
+        sc.setSecurityClearanceId(4);
         sc.setName("Secret");
         Result<SecurityClearance> result = service.update(sc);
         assertEquals(ResultType.INVALID,result.getType());
@@ -102,6 +111,18 @@ class SecurityClearanceServiceTest {
         when(repository.update(sc)).thenReturn(false);
         Result<SecurityClearance> result = service.update(sc);
         assertEquals(ResultType.NOT_FOUND,result.getType());
+    }
+
+    @Test
+    void shouldNotDelete() {
+        when(repository.delete(10)).thenReturn(false);
+        assertFalse(service.delete(10));
+    }
+    
+    @Test
+    void shouldDelete() {
+        when(repository.delete(1)).thenReturn(true);
+        assertTrue(service.delete(1));
     }
 
 
