@@ -14,6 +14,16 @@ public class Agent {
     private int heightInInches;
     private List<AgentAgency> agencies = new ArrayList<>();
 
+    public List<Alias> getAlias() {
+        return alias;
+    }
+
+    public void setAlias(List<Alias> alias) {
+        this.alias = alias;
+    }
+
+    private List<Alias> alias = new ArrayList<>();
+
     public int getAgentId() {
         return agentId;
     }

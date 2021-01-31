@@ -172,3 +172,9 @@
 * deleteAlias
   * Delete Mapping(/Delete)    
   
+
+### Things to do and Research
+* Still a little fuzzy on error handling will need to reread lesson.
+* Determine if using join on agent is the best route to take to get aliases for an agent.
+* Controller Testing is optional (Will attempt with time)
+  
