@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.stereotype.Repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -30,9 +31,16 @@ class SecurityClearanceServiceTest {
     @Test
     void shouldAdd() {
         SecurityClearance sc = makeSecurityClearance();
+        sc.setSecurityClearanceId(0);
+        SecurityClearance out = makeSecurityClearance();
+        out.setSecurityClearanceId(3);
+        when(repository.add(sc)).thenReturn(out);
         Result<SecurityClearance> result = service.add(sc);
         assertEquals(ResultType.SUCCESS,result.getType());
+        assertEquals(3,result.getPayload().getSecurityClearanceId());
+        assertNotNull(result.getPayload());
     }
+
 
     @Test
     void shouldNotAddIfIdExist() {
@@ -44,8 +52,12 @@ class SecurityClearanceServiceTest {
 
     @Test
     void shouldNotAddIfDuplicate() {
-        
+        SecurityClearance sc = makeSecurityClearance();
+        when(repository.add(sc)).;
+        Result<SecurityClearance> result = service.add(sc);
+        assertEquals(ResultType.INVALID,result.getType());
     }
+
 
     @Test
     void shouldNotUpdateWhenNameIsEmpty() {
@@ -65,6 +77,23 @@ class SecurityClearanceServiceTest {
         Result<SecurityClearance> result = service.update(sc1);
         assertEquals(ResultType.SUCCESS,result.getType());
     }
+
+    @Test
+    void shouldNotUpdateMissingId() {
+        SecurityClearance sc = makeSecurityClearance();
+        Result<SecurityClearance> result = service.update(sc);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
+
+    @Test
+    void shouldNotUpdateDuplicateName() {
+        SecurityClearance sc = makeSecurityClearance();
+        sc.setSecurityClearanceId(1);
+        sc.setName("Secret");
+        Result<SecurityClearance> result = service.update(sc);
+        assertEquals(ResultType.INVALID,result.getType());
+    }
+
 
     @Test
     void shouldNotUpdateIfNoMatch() {

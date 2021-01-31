@@ -59,7 +59,7 @@ public class SecurityClearanceService {
             result.addMessage("Name must not be blank", ResultType.INVALID);
         }
 
-        boolean notUnique = findAll().stream().anyMatch(s -> s.getName().equals(sc.getName()));
+        boolean notUnique = findAll().stream().anyMatch(s -> s.getName().equalsIgnoreCase(sc.getName()));
 
         if(notUnique) {
             result.addMessage("Name is not unique", ResultType.INVALID);
