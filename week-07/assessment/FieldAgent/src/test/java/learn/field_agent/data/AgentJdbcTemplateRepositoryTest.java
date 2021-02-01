@@ -31,7 +31,6 @@ class AgentJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<Agent> agents = repository.findAll();
         assertNotNull(agents);
-
         // can't predict order
         // if delete is first, we're down to 7
         // if add is first, we may go as high as 10

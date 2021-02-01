@@ -19,7 +19,7 @@ create table solarpanel (
 delimiter //
 create procedure set_known_good_state()
 begin
-
+truncate table solarpanel;
 insert into solarpanel (section, varRow, varCol, yearInstall, material, tracking, uniqueKey)
 
 values
@@ -27,4 +27,5 @@ values
     ("Lower", 1, 1, 2020, "Cadmium telluride", 0, "Lower:1:1");
 end //
 delimiter ;    
-    
+
+select * from solarpanel;    

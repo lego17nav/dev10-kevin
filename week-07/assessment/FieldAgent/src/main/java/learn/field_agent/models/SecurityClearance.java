@@ -24,6 +24,7 @@ public class SecurityClearance {
     }
 
     public SecurityClearance() {
+
     }
 
     public SecurityClearance(int securityClearanceId, String name) {
