@@ -1,7 +1,10 @@
 // DOUBLE IT
 
 const phrase = "phrase";
-
+let twice = "";
+for(let i = 0; i < phrase.length; i++) {
+    twice += phrase.charAt(i).repeat(2);
+} console.log(twice);
 // 1. Write a loop that "doubles" each character in a word.
 // You'll need a new string variable to store the result.
 // 2. Print the result.

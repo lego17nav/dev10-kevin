@@ -7,9 +7,17 @@
 // - If only one of the three ask, print "Going to hold off for a bit."
 // - If none of the managers ask, print "Nothing to do..."
 
-const managerAAsked = true;
-const managerBAsked = true;
-const managerCAsked = true;
+const managerAAsked = false;
+const managerBAsked = false;
+const managerCAsked = false;
 
 // 1. Add decisions statements to cover all scenarios.
 // 2. Change manager variables to test all scenarios.
+
+if(managerAAsked && managerBAsked && managerCAsked) {
+    console.log("Feature inprogress");
+} else if((managerAAsked && managerBAsked) || (managerBAsked && managerCAsked) || (managerAAsked && managerCAsked)) {
+    console.log("Adding feature to schedule");
+} else if(managerAAsked || managerBAsked || managerCAsked) {
+    console.log("Going to hold off for a bit")
+} else {console.log("nothing to do");}

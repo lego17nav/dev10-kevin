@@ -1,5 +1,6 @@
 const assert = require("assert");
 
+
 // FIRST VOWEL
 // Complete the function `getFirstVowel`.
 // It should return the first vowel in a string.

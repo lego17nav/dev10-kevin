@@ -27,6 +27,15 @@ let potters = 12;
 // Write your distribution code here.
 // One set of code must work for all scenarios.
 
+if(9 % 2 != 0) {
+    if(potters > archers) {
+        let difference = potters - archers;
+        if(difference < swimmers) {
+            swimmers -
+        }
+    } 
+}
+
 // Confirm results for each scenario.
 console.log(`Swimmers: ${swimmers}`);
 console.log(`Archers: ${archers}`);

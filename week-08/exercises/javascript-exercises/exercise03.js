@@ -24,6 +24,10 @@
 etc...
 */
 
-const day = 12;
+const day = 100;
 
 // Write code here.
+
+let days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+let dayof = day % 7 - 1;
+console.log(days[dayof]);
