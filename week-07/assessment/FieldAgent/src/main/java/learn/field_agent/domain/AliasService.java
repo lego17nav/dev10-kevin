@@ -5,6 +5,7 @@ import learn.field_agent.models.Alias;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AliasService {
@@ -61,8 +62,19 @@ public class AliasService {
             result.addMessage("Need Agent Id",ResultType.INVALID);
         }
 
-        if(alias.getName().isBlank() || alias.getName().equals(null)) {
+        if(alias.getName().isBlank() || alias.getName() == null) {
             result.addMessage("Need agent alias", ResultType.INVALID);
+        }
+
+        if(!(alias.getPersona().isBlank() && alias.getName().isBlank())) {
+            List<Alias> aliasFilter = findAll().stream().
+                    filter(a -> a.getName().equalsIgnoreCase(alias.getName()))
+                    .collect(Collectors.toList());
+            boolean duplicatePersona = aliasFilter.stream()
+                    .anyMatch(fa -> fa.getPersona().equalsIgnoreCase(alias.getPersona()));
+            if(duplicatePersona) {
+                result.addMessage("Alias is duplicate so Persona must be unique", ResultType.INVALID);
+            }
         }
 
         if(alias.getPersona().isBlank() || alias.getPersona().equals(null)) {

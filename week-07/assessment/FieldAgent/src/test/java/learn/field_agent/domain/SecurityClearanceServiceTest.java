@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -78,7 +79,6 @@ class SecurityClearanceServiceTest {
     void shouldUpdate() {
         SecurityClearance sc1 = makeSecurityClearance();
         sc1.setSecurityClearanceId(1);
-
         when(repository.update(sc1)).thenReturn(true);
         Result<SecurityClearance> result = service.update(sc1);
         assertEquals(ResultType.SUCCESS,result.getType());
@@ -123,6 +123,31 @@ class SecurityClearanceServiceTest {
     void shouldDelete() {
         when(repository.delete(1)).thenReturn(true);
         assertTrue(service.delete(1));
+    }
+
+    @Test
+    void shouldNotFIndMissingID() {
+        when(repository.findById(1)).thenReturn(null);
+        SecurityClearance sc = service.findById(1);
+        assertEquals(null,sc);
+    }
+
+    @Test
+    void shouldFindId() {
+        SecurityClearance sc = makeSecurityClearance();
+        sc.setSecurityClearanceId(1);
+        when(repository.findById(1)).thenReturn(sc);
+        SecurityClearance out = service.findById(1);
+        assertEquals(1,out.getSecurityClearanceId());
+    }
+
+    @Test
+    void shouldFindAll() {
+        when(repository.findAll()).thenReturn(List.of(
+                new SecurityClearance(1,"Secret"),
+                new SecurityClearance(2,"Top Secret")
+        ));
+        assertEquals(2,service.findAll().size());
     }
 
 
