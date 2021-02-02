@@ -15,7 +15,17 @@ const assert = require("assert");
 // Execute this exercise.
 // If you see the message "success!", all tests pass.
 
-assert.strictEqual(areInOrder(2, 4, 6, 7), true);
+function areInOrder(...args) {
+    for(let i = 1; i < args.length; i++) {
+        if(args[i - 1] <= args[i]) {
+            continue;
+        } else {return false;}
+    } return true;
+
+}
+console.log(areInOrder(1, 1, 2));
+
+/*assert.strictEqual(areInOrder(2, 4, 6, 7), true);
 assert.strictEqual(areInOrder(4, 1, 1, 8), false);
 assert.strictEqual(areInOrder(1, 1, 2), true);
 assert.strictEqual(areInOrder(-5, 0), true);
@@ -27,4 +37,4 @@ assert.strictEqual(areInOrder(0, 9), false);
 assert.strictEqual(areInOrder(-7, -5, 4), true);
 assert.strictEqual(areInOrder(-7, -5, 14), false);
 
-console.log("success!");
+console.log("success!");*/

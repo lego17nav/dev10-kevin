@@ -12,6 +12,9 @@ ice fishing 2 [ 'snow', 'sun', 'ice fishing' ]
 firecracker
 aeiouaeiouaeiouaeiouaeiou
 */
+function runFunction(arg) {
+    arg();
+}
 
 function f1() {
     console.log("one");

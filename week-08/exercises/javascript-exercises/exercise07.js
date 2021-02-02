@@ -8,7 +8,12 @@ const assert = require("assert");
 // or `value` is undefined, return an empty string.
 
 function getFirstVowel(value) {
-
+    const vowels = ['a','e','i','o','u']
+    for(let char of value) {
+        if (vowels.includes(char)) {
+            return char
+        }
+    }    
 }
 
 // Node's assert library will test your function.

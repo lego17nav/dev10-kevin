@@ -7,6 +7,13 @@ const assert = require("assert");
 // If the numbers aren't in order, return boolean `false`.
 // Use a function expression instead of a function declaration.
 
+function areInOrder(a,b,c,d) {
+    if(a < b && b < c && c < d) {
+        return true;
+    }
+    return false;
+}
+
 // Execute this exercise.
 // If you see the message "success!", all tests pass.
 
