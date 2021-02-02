@@ -38,6 +38,16 @@ const assert = require("assert");
 // Execute this exercise.
 // If you see the message "success!", all tests pass.
 
+function asAscendingContiguous(a, b, c) {
+    if(Math.abs(a - b) == 1 && Math.abs(b - c) == 1){
+        return true;
+    } return false;
+}
+
+function areContiguous(a, b, c) {
+    
+}
+
 assert.strictEqual(isAscendingContiguous(3, 4, 5), true);
 assert.strictEqual(isAscendingContiguous(-10, 4, 100), false);
 assert.strictEqual(isAscendingContiguous(2, 1, 2), false);
