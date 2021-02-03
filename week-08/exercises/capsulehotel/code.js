@@ -27,7 +27,7 @@ function handleGuestFormSubmit(event) {
 
 function handleCheckOutFormSubmit(event) {
     event.preventDefault();
-    const checkOutCapsuleElement = bookGuestForm.querySelector("#checkOutCapsule");
+    const checkOutCapsuleElement = checkOutGuestForm.querySelector("#checkOutCapsule");
 
     
     const checkOutCapsuleString = checkOutCapsuleElement.value;
