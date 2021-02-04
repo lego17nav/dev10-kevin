@@ -12,4 +12,10 @@ function App() {
     createElement(CoinPanel)); // 3.
 }
 
+<Trigonometry
+    pi={3.14159}
+    cos={Math.cos}
+    triangleVertices={[[0, 0], [3, 0], [3, 5.7]]}
+/>
+
 export default App;
