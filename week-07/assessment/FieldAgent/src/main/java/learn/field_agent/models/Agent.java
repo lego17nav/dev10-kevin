@@ -11,7 +11,7 @@ public class Agent {
     private String middleName;
     private String lastName;
     private LocalDate dob;
-    private int heightInInches;
+    private int height;
     private List<AgentAgency> agencies = new ArrayList<>();
 
     public List<Alias> getAlias() {
@@ -64,12 +64,12 @@ public class Agent {
         this.dob = dob;
     }
 
-    public int getHeightInInches() {
-        return heightInInches;
+    public int getHeight() {
+        return height;
     }
 
-    public void setHeightInInches(int heightInInches) {
-        this.heightInInches = heightInInches;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public List<AgentAgency> getAgencies() {

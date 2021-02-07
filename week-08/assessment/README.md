@@ -3,6 +3,14 @@
 
 ### High-Level Requirements
 
+* Create the following UseState
+  * FirstName
+  * MiddleName  
+  * LastName
+  * DOB
+  * Height
+  * Agent
+
 * Create Agent Component with the following props [1 hour]
   - addAgent
   - deleteAgent
@@ -17,7 +25,9 @@
     * Height
   
 * Display all agent - [2 hours]
-  * Fetch data from Local Host/"Agent"
+  * Collection of Agent in a list Will be displayed   
+    using map in the form.
+  * Fetch data from Local Host/Agent (All Agent)
   * Promise statement if response status isn't success   
     reject promise.
     If success -> return response JSON (Data)
@@ -27,7 +37,10 @@
 * Create AddAgent Component [3 hours]
   * Set up our agent Object with Const newAgent = {firstname
     , MiddleName, LastName, DOB, Height}
-  * Create Use state for said agent list.
+    * Fetch "using Post" the created Agent with datas from form
+    * If fetch is success grab data and if id exist then add it 
+    to the running list of AGENT.
+    * Else Reject and display message.  
   * Create onChangeHandler
     * Grab target name and value
     * Create a copy of the list created from useState
@@ -40,7 +53,7 @@
   * fetch(localhost using Method: Delete)
   * If promise is success Filter Agents with the matching
   AgentId set the List without the filtered out todo.
-   * I fetch fails console.log(error)  
+   * I fetch fails reject promise with the following message "Unable to find Agent"
   
   
 * Create handleUpdate Function [3 hours]
@@ -67,15 +80,45 @@
   * Class Name for Bootstrap undetermined
 
 ### UI Lay-Out
-  * Will include a header spanning the top of the browser.
- ------------------------------------------------------------------
- Agent |ID|First Name|Middle Name| Last Name | DOB | Height  
- Input Fields | | | | | |  
+
+------------------------------------------------------------------
+Verification Are if Action is Success or if Failure display
+message.
+
+-----------------------------------------------------------
+Input Area
+Agent|First Name|Middle Name|Last Name|DOB|Height|   
+Input Fields | | | | | |  
 
 -------------------------------------------------------------------
-List of Agents ......
-....... Id, First Name, Last Name
+List of Agents ......  Each rows will be draggable to a delete box 
+at the bottom of the browser.   
+....... First Name | Last Name | Edit Button |   
+.......    
 .......
-.......
+
+------------------------------------------------------------------
+
+#### Initiation
+* Would first work on The Agent Component
+* Function to show agent and Mapping on Return Body
+* Delete Agent
+* Add Agent
+* Update Agent
+
+#### Refactoring
+* Will try to refactor each required function to its own component
+
+
+#### Functionality Misc.
+* All agents will be displayed down at the bottom of the Browser 
+where each agent would be editable.
+* There Will be a Table at the top of the browser that would toggle
+between updating or adding depending on user's choice.
+* Fields are missing fields would turn red.
+* add message board at the top to display whether an action is a  
+success.  
+
+
 
          

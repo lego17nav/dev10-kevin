@@ -82,7 +82,7 @@ public class AgentService {
             result.addMessage("agents younger than 12 are not allowed", ResultType.INVALID);
         }
 
-        if (agent.getHeightInInches() < 36 || agent.getHeightInInches() > 96) {
+        if (agent.getHeight() < 36 || agent.getHeight() > 96) {
             result.addMessage("height must be between 36 and 96 inches", ResultType.INVALID);
         }
 

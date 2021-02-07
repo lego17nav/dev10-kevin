@@ -63,7 +63,7 @@ class AgentServiceTest {
         agent.setMiddleName("C");
         agent.setLastName("Sauven");
         agent.setDob(LocalDate.of(1954, 9, 16));
-        agent.setHeightInInches(76);
+        agent.setHeight(76);
         return agent;
     }
 }

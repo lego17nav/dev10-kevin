@@ -81,7 +81,7 @@ class AgentJdbcTemplateRepositoryTest {
         agent.setFirstName("Test");
         agent.setLastName("Last Name");
         agent.setDob(LocalDate.of(1985, 8, 15));
-        agent.setHeightInInches(66);
+        agent.setHeight(66);
         return agent;
     }
 }

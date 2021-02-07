@@ -63,7 +63,7 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
             ps.setString(2, agent.getMiddleName());
             ps.setString(3, agent.getLastName());
             ps.setDate(4, agent.getDob() == null ? null : Date.valueOf(agent.getDob()));
-            ps.setInt(5, agent.getHeightInInches());
+            ps.setInt(5, agent.getHeight());
             return ps;
         }, keyHolder);
 
@@ -91,7 +91,7 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
                 agent.getMiddleName(),
                 agent.getLastName(),
                 agent.getDob(),
-                agent.getHeightInInches(),
+                agent.getHeight(),
                 agent.getAgentId()) > 0;
     }
 
