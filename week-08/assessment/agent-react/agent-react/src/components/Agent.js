@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Errors from './Errors';
+import Success from './Success';
 
 
 function Agent() {
@@ -14,6 +15,7 @@ function Agent() {
 
     const [editAgentId, setAgentId] = useState(0);
     const [errors, setErrors] = useState([]);
+    const [success, setSuccess] = useState('');
 
     const DEFAULT_AGENT = {
 
@@ -66,14 +68,14 @@ function Agent() {
             body
         })
         .then(response => {
-            if (response.status === 201 || response.status === 400) {
+            if (response.status === 201 || response.status === 400) { 
               return response.json();
             } else {
               Promise.reject('Shoot! Something unexpected went wrong :(');
             }
           })
           .then(data => {
-              if (data.id) {
+              if (data.agentId) {
                 setAgents([...agents, data]);
               
                 setFirstName('');
@@ -84,6 +86,7 @@ function Agent() {
                 
 
                 setErrors([]);
+               
 
           } else {
               setErrors(data);
@@ -100,7 +103,8 @@ function Agent() {
         .then(response => {
         if (response.status === 204) {
             const newAgent = agents.filter(agent => agent.agentId !== agentId);
-            setAgents(newAgent);      
+            setAgents(newAgent); 
+            setSuccess("Agent has been deleted");   
         } else if (response.status === 404) {
             Promise.reject(`Agent ID #${agentId} not found.`);
         } else {
@@ -174,7 +178,7 @@ function Agent() {
                 agencies: [],
                 alias: []                
               };
-
+              setSuccess("Agent has been updated");
               setAgents(newAgent);
 
               setFirstName('');
@@ -200,12 +204,16 @@ function Agent() {
         setDob('');
         setHeight(0);
         setAgentId(0);
+        setErrors([]);
       };
 
     return (
       <>
+    
         <Errors errors={errors}/>
+        <Success messages={success}/>
         
+        {editAgentId === 0 ? (
         <form onSubmit ={handleAddSubmit} >
             <div className = "form-group">
                 <label htmlFor="firstName">First Name : </label>
@@ -237,15 +245,78 @@ function Agent() {
 
             <div className = "form-group" style={{marginTop:"10px"}}>
                 <button className="btn btn-success ml-2" type="submit">Add Agent</button>
-                {(firstName && lastName && middleName && dob && height)||(errors.length > 0) ? (
+                {(firstName && lastName && dob && height)||(errors.length > 0) ? (
                 <button className="btn btn-warning ml-2" type="button"
                 onClick={handleUpdateCancel}>Cancel</button>
                 ) : null}
             </div>
         </form>
+        ) : (
 
+            <form onSubmit ={handleUpdateSubmit} >
+            <div className = "form-group">
+                <label htmlFor="firstName">First Name : </label>
+                <input onChange={handleChangeFirstName} id="firstName" name="firstName" type="text"
+                value={firstName} className="form-control" placeholder="John"/>
+            </div>
+            <div className = "form-group">
+                <label htmlFor="middleName">Middle Name : </label>
+                <input onChange={handleChangeMiddleName} id="middleName" name="middleName" type="text" 
+                value={middleName} className="form-control" placeholder="B."/>
+            </div>
+            <div className = "form-group">
+                <label htmlFor="lastName">lastName : </label>
+                <input onChange={handleChangeLastName} id="lastName" name="lastName" type="text" 
+                value={lastName} className="form-control" placeholder="Doe"/>
+            </div>
+
+            <div className = "form-group">
+                <label htmlFor="dob">Birth Date : </label>
+                <input onChange={handleChangeDob} id="dob" name="dob" type="date" 
+                value={dob} className="form-control"/>
+            </div>
+
+            <div className = "form-group">
+                <label htmlFor="height">Height : </label>
+                <input onChange = {handChangeheight} id="height" name="height" 
+                value={height} type="number" className="form-control" placeholder="xx.xx" />
+            </div> 
+
+            <div className = "form-group" style={{marginTop:"10px"}}>
+            <button className="btn btn-success ml-2" type="submit">Update Agent</button>
+            <button className="btn btn-warning ml-2" type="button" onClick={handleUpdateCancel}>Cancel</button>
+            </div>
+        </form>
         
-
+        )}
+        <table className="table table-striped table-dark table-hover">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Birth Day</th>
+          </tr>
+        </thead>
+        <tbody>
+          {agents.map(agent => (
+             
+            <tr key={agent.agentId} className="item" draggable={true}>
+              <td>{agent.firstName}</td>
+              <td>{agent.lastName}</td>
+              <td>{agent.dob}</td>
+              <td>
+                <div className="float-right">
+                  <button className="btn btn-primary btn-sm" 
+                    onClick={() => handleEdit(agent.agentId)}>Edit</button>
+                  <button className="btn btn-danger btn-sm ml-2" 
+                    onClick={() => handleDelete(agent.agentId)}>Delete</button>
+                </div>
+              </td>              
+            </tr>
+           
+          ))}
+        </tbody>
+      </table> 
       </>
     )
 
