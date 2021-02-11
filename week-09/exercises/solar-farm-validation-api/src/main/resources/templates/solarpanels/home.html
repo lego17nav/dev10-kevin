@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab: Translate To Thymeleaf - Home</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+</head>
+<body>
+<div class="container">
+    <h1>Home</h1>
+    <ul>
+        <li><a href="/viewAll">View All</a></li>
+        <li><a href="/solarpanels/create"/>Add Panels</li>
+        <li>Add Solar Panel</li>
+        <li>Update Solar Panel</li>
+        <li>Delete</li>
+    </ul>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Section</th>
+            <th>Row-Column</th>
+            <th>Year Installed</th>
+            <th>Material</th>
+            <th>Is Tracking</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="panel: ${panels}">
+            <td th:text="panel.section"></td>
+            <td th:text="|{$panel.row}-${panel.column}|"></td>
+            <td th:text="${panel.yearInstalled}"></td>
+            <td th:text="${panel.material}"></td>
+            <td th:text="${panel.tracking} ? 'Y' : 'N'"></td>
+            <td>
+                <a href="edit.html"
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

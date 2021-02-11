@@ -4,7 +4,7 @@ function Errors({ errors }) {
     }
   
     return (
-      <div className="alert alert-success">
+      <div className="alert alert-danger">
         The following errors were found:
         <ul>
           {errors.map(error => (

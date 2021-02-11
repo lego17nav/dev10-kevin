@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import Errors from './Errors';
 import Success from './Success';
-
+import Button from 'react-bootstrap/Button';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Card from 'react-bootstrap/Card'
+import { Accordion } from 'react-bootstrap';
 
 function Agent() {
 
@@ -47,6 +51,7 @@ function Agent() {
     
 
     const handleAddSubmit = (event) => {
+        const localError = [];
         event.preventDefault();
 
         const newAgent = {
@@ -57,6 +62,26 @@ function Agent() {
             height,
         
         };
+
+        if (!firstName) {
+          localError.push("First Name is Missing");
+        }
+        if (!middleName) {
+          localError.push("Middle Name is Missing");
+        }
+        if (!lastName) {
+          localError.push("Last Name is Missing");
+        }
+        if (!dob) {
+          localError.push("BirthDay is Missing");
+        }
+        if (!height) {
+          localError.push("Height Name is Missing");
+        }
+        if(localError.length != 0) {
+          setErrors(localError);
+          return;
+        }
 
         const body = JSON.stringify(newAgent);
 
@@ -70,11 +95,13 @@ function Agent() {
         .then(response => {
             if (response.status === 201 || response.status === 400) { 
               return response.json();
-            } else {
+            }
+            else {
               Promise.reject('Shoot! Something unexpected went wrong :(');
             }
           })
           .then(data => {
+  
               if (data.agentId) {
                 setAgents([...agents, data]);
               
@@ -130,6 +157,7 @@ function Agent() {
     
 
     const handleUpdateSubmit = (event) => {
+        const localError = [];
         event.preventDefault();
 
         const updatedAgent = {
@@ -142,6 +170,26 @@ function Agent() {
             agencies: [],
             alias: []
         };
+
+        if (!firstName) {
+          localError.push("First Name is Missing");
+        }
+        if (!middleName) {
+          localError.push("Middle Name is Missing");
+        }
+        if (!lastName) {
+          localError.push("Last Name is Missing");
+        }
+        if (!dob) {
+          localError.push("BirthDay is Missing");
+        }
+        if (!height) {
+          localError.push("Height Name is Missing");
+        }
+        if(localError.length != 0) {
+          setErrors(localError);
+          return;
+        }
 
         const body = JSON.stringify(updatedAgent);
 
@@ -207,8 +255,30 @@ function Agent() {
         setErrors([]);
       };
 
+      const handleDrag = (agentId) => {
+        setAgentId(agentId)
+      } 
+
+      const handDrop = (event) => {
+        if (event.target.className === "dropzone") {
+          handleDelete(editAgentId);
+          setAgentId(0);
+        }
+        setAgentId(0);
+      }
+
+      const handleDragEnter = (event) => {
+        event.preventDefault();
+        
+      }
+
+      const handleDragOver = (event) => {
+        event.preventDefault();
+        
+      }
+
     return (
-      <>
+      <div id="container">
     
         <Errors errors={errors}/>
         <Success messages={success}/>
@@ -289,21 +359,24 @@ function Agent() {
         </form>
         
         )}
-        <table className="table table-striped table-dark table-hover">
+        <div style={{position:"relative"}}>
+          <div onDragEnter={handleDragEnter} onDragOver={handleDragOver} onDrop = {handDrop} id="droparea" className="dropzone">Drop Here</div>
+        </div>
+        <table className="table table-striped table-dark table-hover">  
         <thead>
           <tr>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
-            <th scope="col">Birth Day</th>
+            <th scope="col">Middle Name</th>
           </tr>
         </thead>
         <tbody>
           {agents.map(agent => (
-             
-            <tr key={agent.agentId} className="item" draggable={true}>
+          <>
+            <tr key={agent.agentId} className="item" className = "dropzone" draggable={true} id="tablerow" onDrag={() => handleDrag(agent.agentId)}>
               <td>{agent.firstName}</td>
               <td>{agent.lastName}</td>
-              <td>{agent.dob}</td>
+              <td>{agent.middleName}</td>
               <td>
                 <div className="float-right">
                   <button className="btn btn-primary btn-sm" 
@@ -311,13 +384,23 @@ function Agent() {
                   <button className="btn btn-danger btn-sm ml-2" 
                     onClick={() => handleDelete(agent.agentId)}>Delete</button>
                 </div>
-              </td>              
+              </td>           
             </tr>
-           
+            <Accordion>
+            <Card.Header>
+                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                      <p>Click for more information</p>
+                    </Accordion.Toggle>
+                  </Card.Header>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>Birth Day: {agent.dob} | Height: {agent.height}</Card.Body>
+            </Accordion.Collapse>
+            </Accordion>
+          </>   
           ))}
         </tbody>
       </table> 
-      </>
+     </div> 
     )
 
 
