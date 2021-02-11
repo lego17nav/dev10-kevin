@@ -360,7 +360,7 @@ function Agent() {
         
         )}
         <div style={{position:"relative"}}>
-          <div onDragEnter={handleDragEnter} onDragOver={handleDragOver} onDrop = {handDrop} id="droparea" className="dropzone">Drop Here</div>
+          <div onDragEnter={handleDragEnter} onDragOver={handleDragOver} onDrop = {handDrop} id="droparea" className="dropzone">Drop Here to Delete</div>
         </div>
         <table className="table table-striped table-dark table-hover">  
         <thead>
