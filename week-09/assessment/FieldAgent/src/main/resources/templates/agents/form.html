@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <title>Agent - [[${agent.agentId > 0 ? 'Update' : 'Create'}]] Agents</title>
+</head>
+<body>
+
+<section class="section">
+    <div class="container">
+
+        <h1>Agent</h1>
+
+        <h2>[[${agent.agentId > 0 ? 'Update' : 'Create'}]] Agent</h2>
+
+        <div class="notification is-danger" th:errors="${agent.*}">All Errors Messages</div>
+
+        <form method="post" th:object="${agent}">
+            <fieldset class="flex three" >
+            <div class="field">
+                <label class="label" for="first">First Name:</label>
+                <input id="first" class="input" type="text" th:field="*{firstName}">
+            </div>
+
+            <div class="field">
+                <label class="label" for="middle">Middle Name:</label>
+                <input id="middle" class="input" type="text" th:field="*{middleName}">
+            </div>
+
+            <div class="field">
+                <label class="label" for="last">Last Name:</label>
+                <input id="last" class="input" type="text" th:field="*{lastName}">
+            </div>
+            </fieldset>
+
+            <fieldset class="flex two">
+            <div class="field">
+                <label class="label" for="dob">Birth Day:</label>
+                <input id="dob" class="input" type="date" th:field="*{dob}">
+            </div>
+
+            <div class="field">
+                <label class="label" for="height">Height:</label>
+                <input id="height" class="input" type="number" th:field="*{height}">
+            </div>
+            </fieldset>
+
+            <!-- this hidden field will allow the solar panel id to be carried across requests -->
+            <input type="hidden" th:field="*{agentId}">
+
+            <div>
+                <button class="success" type="submit">[[${agent.agentId > 0 ? 'Update' : 'Create'}]] Agent</button>
+                <a href="/">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+</body>
+</html>

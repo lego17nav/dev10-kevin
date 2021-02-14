@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Agent Delete Agent</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+<section class="teal lighten-3">
+    <div class="container">
+
+        <h1 class="title is-1">Agent</h1>
+
+        <h2 class="title is-2">Delete Agent</h2>
+
+        <p>Delete the following agent?</p>
+
+        <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>First Name: <span th:text="${agent.firstName}">Section</span></td>
+            <td>Middle Name: <span th:text="${agent.middleName}">1</span></td>
+            <td>Last Name: <span th:text="${agent.lastName}">1</span></td>
+            </tr>
+        </tbody>
+        </table>
+
+
+        <form method="post">
+
+            <div>
+                <button class="btn-floating btn-large red pulse" type="submit">Delete</button>
+                <a class="button is-warning" href="/agents/index">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+</body>
+</html>

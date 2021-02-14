@@ -1,17 +1,36 @@
 package learn.field_agent.models;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Agent {
 
+
     private int agentId;
+
+    @NotBlank(message = "Agent First Name can't be null")
     private String firstName;
+
+    @NotBlank(message = "Agent Middle Name can't be null")
     private String middleName;
+
+    @NotBlank(message = "Agent Last Name can't be null")
     private String lastName;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
+
+
+    @Min(value = 36, message = "Height must be above 36")
+    @Max(value = 96, message = "Height must be below 86")
     private int height;
+
+
     private List<AgentAgency> agencies = new ArrayList<>();
 
     public List<Alias> getAlias() {

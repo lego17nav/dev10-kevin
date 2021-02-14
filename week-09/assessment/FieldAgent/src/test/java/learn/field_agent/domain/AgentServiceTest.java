@@ -30,17 +30,17 @@ class AgentServiceTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void shouldNotAddWhenInvalid() {
-        Agent agent = makeAgent();
-        Result<Agent> result = service.add(agent);
-        assertEquals(ResultType.INVALID, result.getType());
-
-        agent.setAgentId(0);
-        agent.setFirstName(null);
-        result = service.add(agent);
-        assertEquals(ResultType.INVALID, result.getType());
-    }
+//    @Test
+//    void shouldNotAddWhenInvalid() {
+//        Agent agent = makeAgent();
+//        Result<Agent> result = service.add(agent);
+//        assertEquals(ResultType.INVALID, result.getType());
+//
+//        agent.setAgentId(0);
+//        agent.setFirstName(null);
+//        result = service.add(agent);
+//        assertEquals(ResultType.INVALID, result.getType());
+//    }
 
     @Test
     void shouldNotAddWhenValid() {
