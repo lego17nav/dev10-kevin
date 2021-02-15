@@ -80,7 +80,7 @@ public class AgentThymeController {
             BindingResult result, Model model
     ){
         if(result.hasErrors()) {
-            return "agents.form";
+            return "agents/form";
         }
 
         Result<Agent> agentResult = service.update(agent);
