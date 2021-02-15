@@ -30,7 +30,7 @@ public class Agent {
 
 
     @Min(value = 36, message = "Height must be above 36")
-    @Max(value = 96, message = "Height must be below 86")
+    @Max(value = 96, message = "Height must be below 96")
     private int height;
 
 
