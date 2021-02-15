@@ -14,7 +14,7 @@
 
         <h2>[[${agent.agentId > 0 ? 'Update' : 'Create'}]] Agent</h2>
 
-        <div class="notification is-danger" th:errors="${agent.*}">All Errors Messages</div>
+        <div class="label error" th:errors="${agent.*}">All Errors Messages</div>
 
         <form method="post" th:object="${agent}">
             <fieldset class="flex three" >
