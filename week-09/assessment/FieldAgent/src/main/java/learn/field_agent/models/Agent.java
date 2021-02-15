@@ -14,15 +14,15 @@ public class Agent {
     private int agentId;
 
     @NotBlank(message = "Agent First Name can't be null")
-    @Size(max = 25)
+    @Size(max = 25, message = "Characters can't exceed 25")
     private String firstName;
 
     @NotBlank(message = "Agent Middle Name can't be null")
-    @Size(max = 25)
+    @Size(max = 25, message = "Characters can't exceed 25")
     private String middleName;
 
     @NotBlank(message = "Agent Last Name can't be null")
-    @Size(max = 25)
+    @Size(max = 25, message = "Characters can't exceed 25")
     private String lastName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
